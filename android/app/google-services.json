@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "157758303431",
+    "project_id": "mayank-aora",
+    "storage_bucket": "mayank-aora.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:157758303431:android:179c153882544c1a4f62e2",
+        "android_client_info": {
+          "package_name": "com.mayank.aora"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "157758303431-g84p69u1aaq370sc0svq2f4c676s2tad.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.mayank.aora",
+            "certificate_hash": "bc8ad80614c79b43bc04bf399e8e5aea25671f18"
+          }
+        },
+        {
+          "client_id": "157758303431-on4ctk5hsfkeetv5e8lqntv4s7275t5k.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.mayank.aora",
+            "certificate_hash": "c6b8d1ac1b4d9539abeb62014470f260bc518579"
+          }
+        },
+        {
+          "client_id": "157758303431-6nssjbt2aopl7219sugns2b400s2dh4a.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCU7BxCdBFwF3X9GJOwd5WkAx-MUdy06tI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "157758303431-6nssjbt2aopl7219sugns2b400s2dh4a.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

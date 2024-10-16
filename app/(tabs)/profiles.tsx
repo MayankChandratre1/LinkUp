@@ -17,8 +17,6 @@ const profiles = () => {
   const [isNewProfile, setIsNewProfile] = useState(false)
   useEffect(()=>{
     getCurrentUserInfo().then(data => {
-      console.log(JSON.stringify(data));
-      
       if(data?.isNewProfile){
         setIsNewProfile(true)
       }
@@ -26,8 +24,6 @@ const profiles = () => {
    
     
     getAllUsers().then((data)=>{
-      console.log(data);
-      
       setUsers(data);
     })
 

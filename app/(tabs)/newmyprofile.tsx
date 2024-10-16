@@ -6,6 +6,7 @@ import { User } from '@/types/userTypes'
 import { calculatePercentage } from '@/lib/profileCompletion'
 import { getCurrentUserInfo } from '@/firebase/services/rnFirebase/db'
 import { router } from 'expo-router'
+import Noti from '@/components/ui/test/Noti'
 
 const newmyprofile = () => {
     const [user, setUser] = useState<Partial<User> | null>(null)
@@ -26,7 +27,7 @@ const newmyprofile = () => {
 
   return (
     <SafeAreaView>
-        <MyProfilePage user={user} />
+      <Noti />
     </SafeAreaView>
   )
 }

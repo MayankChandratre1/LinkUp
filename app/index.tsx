@@ -30,7 +30,7 @@ export default function Index() {
       </View>
       <View className="flex-1 justify-center items-center">
         <CustomButton title="Get Started" containerStyles="w-3/5" textStyles="font-isemibold text-sm" onPress={()=>{
-          router.push("/(tabs)/profiles")
+          router.push("/(auth)/signup")
         }} />
       </View>
       </View>

@@ -1,5 +1,5 @@
 import { View, Text, Image, TouchableOpacity, Linking, KeyboardAvoidingView, Platform } from 'react-native'
-import React, { useEffect, useState } from 'react'
+import React, { useCallback, useEffect, useState } from 'react'
 import { CurrentUser } from '@/constants/Images'
 import FontAwesome6 from '@expo/vector-icons/FontAwesome6';
 import { Ionicons } from '@expo/vector-icons'
@@ -7,22 +7,62 @@ import AntDesign from '@expo/vector-icons/AntDesign';
 import { CustomButton2 } from './ui/CustomButton';
 import Entypo from '@expo/vector-icons/Entypo';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { router } from 'expo-router';
+import { router, useFocusEffect } from 'expo-router';
 import { User } from '@/types/userTypes';
 import { calculatePercentage } from '@/lib/profileCompletion';
 import { signOut } from '@/firebase/services/rnFirebase/auth';
 import SocialsModal2 from './ui/Profile/MyProfile/SocialsModal';
+import { RequestType } from '@/types/requestTypes';
+import { getReceivedRequests, getSentRequests } from '@/firebase/services/rnFirebase/db';
 
 const MyProfile = ({user}:{
     user:Partial<User> | null
 }) => {
     const [percent, setPercent] = useState(0)
     const [showSocialsModal, setShowSocialsModal] = useState(false)
+    const [notifications, setNotifications] = useState<{
+        sentReq: Partial<RequestType>[],
+        receivedReq: Partial<RequestType>[]
+    }>({
+        sentReq:[],
+        receivedReq:[]
+    })
 
-    useEffect(()=>{
-        if(user)
-            setPercent(calculatePercentage(user))
-    },[user])
+
+    const fetchNoti = async () => {
+        if (!user || !user.id) return;
+        
+        try {
+            const sent = await getSentRequests(user.id);
+            const received = await getReceivedRequests(user.id);
+            console.log("Sent Requests: ", JSON.stringify(sent));
+            console.log("Received Requests: ", JSON.stringify(received));
+            setNotifications({
+                sentReq: sent,
+                receivedReq: received
+            });
+        } catch (error) {
+            console.error("Error fetching notifications:", error);
+        }
+    }
+
+    useFocusEffect(
+        React.useCallback(() => {
+            // Fetch notifications when the screen gains focus
+            fetchNoti();
+            // Clean-up function (optional, can be used for any clean-up logic)
+            return () => {
+                setNotifications({ sentReq: [], receivedReq: [] }); // Reset notifications when the screen loses focus
+            };
+        }, [user?.id]) // Dependency on user ID ensures fetch only when user ID is available/changes
+    );
+
+    useEffect(() => {
+        if (user) {
+            setPercent(calculatePercentage(user));
+        }
+    }, [user]);
+
 
   if(!user){
         return null
@@ -46,8 +86,20 @@ const MyProfile = ({user}:{
                 }}>
                     <Text className='text-red-500 font-isemibold'>Sign out</Text>
                 </CustomButton2>
-                <CustomButton2 title='settings'  >
-                    <Ionicons name='menu' size={32} color={"white"} />
+                <CustomButton2 title='settings' 
+                containerStyles='p-2'
+                onPress={()=>{
+                    router.push("/(tabs)/notifications")
+                }}  >
+                    {
+                        notifications.sentReq.length > 0 || notifications.receivedReq.length > 0 ?
+                        <>
+                            <View className='w-3 h-3 bg-red-500 rounded-full absolute z-20 -top-1 -right-1'>
+
+                            </View>
+                        </>:null
+                    }
+                    <AntDesign name='bells' size={24} color={"white"} />
                 </CustomButton2>
                 </View>
             </View>
@@ -60,19 +112,6 @@ const MyProfile = ({user}:{
              className='w-full h-[350px]'
          />:<View className='w-full h-[350px] bg-secondary'></View>}
       </View>
-
-      {/* <View className='relative -top-[150px] items-center flex-1'>
-        
-        <View className='w-3/4 mt-4 rounded-md px-3  flex-row justify-around '>
-            <CustomButton2 title='settings' containerStyles='py-2 px-2 rounded-full bg-secondary'  >
-            <Entypo name="dots-three-horizontal" size={24} color="white" />
-            </CustomButton2>
-            <CustomButton2 title='settings' containerStyles='flex-1 ml-3 flex-row bg-secondary'  >
-            <AntDesign name="wechat" size={24} color="white" /><Text className='text-lg font-isemibold text-white'>{"  "}Start Chat</Text>
-            </CustomButton2>
-        </View>
-      </View> */}
-
       <View className='items-center relative -top-[30%]' >
             <View className='bg-vibrant rounded-3xl p-3 items-center w-1/2 relative top-8 z-10'>
                 <View className='flex-row gap-1 items-center'>
@@ -94,9 +133,7 @@ const MyProfile = ({user}:{
             </CustomButton2>
         </View>
     </View>
-
-
-        </View>
+  </View>
     </SafeAreaView>
   )
 }

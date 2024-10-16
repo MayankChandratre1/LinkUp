@@ -2,22 +2,10 @@ import { View, Text, FlatList } from 'react-native'
 import React, { useEffect, useState } from 'react'
 import FunctionCard from './FunctionCard'
 import { clearPersistence } from '@react-native-firebase/firestore'
+import { FunctionType } from '@/types/functionTypes'
 
 const FunctionList = ({data, category, filter}:{
-    data:{
-        id:string,
-        title:string,
-        user:string,
-        desc:string,
-        date:string,
-        category:string,
-        thumbnail_url:string,
-        location:{
-          longitude:number,
-          latitude:number,
-          city:string
-        }
-    }[],
+    data:Partial<FunctionType>[],
     category?:string,
     filter?:string
 }) => {
@@ -27,7 +15,7 @@ const FunctionList = ({data, category, filter}:{
   useEffect(()=>{
     const timeout = setTimeout(()=>{
         if(filter && filter.length > 0){
-            const new_data = data.filter(func => func.title.toLowerCase().includes(filter.toLowerCase()) || func.desc.toLowerCase().includes(filter.toLowerCase()))
+            const new_data = data.filter(func => func.title?.toLowerCase().includes(filter.toLowerCase()) || func.desc?.toLowerCase().includes(filter.toLowerCase()))
             setFilteredData(new_data)    
         }
     },800)
@@ -45,11 +33,16 @@ const FunctionList = ({data, category, filter}:{
         setFilteredData(data)
     }
   },[category, filter])
+
+  useEffect(()=>{
+    if(category === 'All' || !category)
+    setFilteredData(data)
+  }, [data])
   return (
     <View className='p-3 mb-[310px]'>
       <FlatList 
         data={filteredData}
-        keyExtractor={(item)=> item.id}
+        keyExtractor={(item)=> item.id || "key"}
         renderItem={({item})=> <FunctionCard  function_item={item} />}
         className='h-full'
         initialNumToRender={7}

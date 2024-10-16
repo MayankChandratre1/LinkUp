@@ -1,7 +1,5 @@
 import { View, Text, StyleSheet } from 'react-native'
 import React from 'react'
-import '@/OlaMapsWebSDK/OlaMapsWebSDK/style.css'
-import {OlaMaps} from '@/OlaMapsWebSDK/OlaMapsWebSDK/olamaps-js-sdk.es'
 import MapView from 'react-native-maps'
 const nearbyLocations = () => {
    

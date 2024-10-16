@@ -579,17 +579,18 @@ export const demo_profiles = [
       }
     },
     // Pubs
+// Pubs
 {
   id: "19",
   title: "Night at the Pub",
   desc: "Enjoy a fun night with drinks and music",
   date: "30th Sep 2024",
   category: "Pubs",
-  thumbnail_url: "https://res.cloudinary.com/dvsl1aslo/image/upload/c_thumb,w_200,g_face/v1725541176/Pub_night.png",
+  thumbnail_url: "https://res.cloudinary.com/dvsl1aslo/image/upload/c_thumb,w_200,g_face/v1726924114/george-bakos-83HwuZirc-c-unsplash_khuqtj.jpg",
   user: "John Doe",
   location: {
-    latitude: 28.7041,
-    longitude: 77.1025,
+    latitude: 28.7152081,
+    longitude: 77.125215,
     city: "New Delhi"
   }
 },
@@ -599,7 +600,7 @@ export const demo_profiles = [
   desc: "Explore a local brewery with beer tasting",
   date: "7th Oct 2024",
   category: "Pubs",
-  thumbnail_url: "https://res.cloudinary.com/dvsl1aslo/image/upload/c_thumb,w_200,g_face/v1725541176/Brewery_tour.png",
+  thumbnail_url: "https://res.cloudinary.com/dvsl1aslo/image/upload/c_thumb,w_200,g_face/v1726924114/george-bakos-83HwuZirc-c-unsplash_khuqtj.jpg",
   user: "Jonna Doe",
   location: {
     latitude: 19.2183,
@@ -613,7 +614,7 @@ export const demo_profiles = [
   desc: "Enjoy live music performances while relaxing with drinks",
   date: "10th Oct 2024",
   category: "Pubs",
-  thumbnail_url: "https://res.cloudinary.com/dvsl1aslo/image/upload/c_thumb,w_200,g_face/v1725541176/Live_Music_Pub.png",
+  thumbnail_url: "https://res.cloudinary.com/dvsl1aslo/image/upload/c_thumb,w_200,g_face/v1726924114/george-bakos-83HwuZirc-c-unsplash_khuqtj.jpg",
   user: "John Doe",
   location: {
     latitude: 12.9716,
@@ -627,7 +628,7 @@ export const demo_profiles = [
   desc: "Test your knowledge at a pub quiz night with friends",
   date: "14th Oct 2024",
   category: "Pubs",
-  thumbnail_url: "https://res.cloudinary.com/dvsl1aslo/image/upload/c_thumb,w_200,g_face/v1725541176/Pub_Quiz.png",
+  thumbnail_url: "https://res.cloudinary.com/dvsl1aslo/image/upload/c_thumb,w_200,g_face/v1726924114/george-bakos-83HwuZirc-c-unsplash_khuqtj.jpg",
   user: "Jonna Doe",
   location: {
     latitude: 22.5726,
@@ -643,7 +644,7 @@ export const demo_profiles = [
   desc: "Get a stylish haircut and a beauty treatment",
   date: "9th Oct 2024",
   category: "Salon",
-  thumbnail_url: "https://res.cloudinary.com/dvsl1aslo/image/upload/c_thumb,w_200,g_face/v1725541176/Salon_day.png",
+  thumbnail_url: "https://res.cloudinary.com/dvsl1aslo/image/upload/c_thumb,w_200,g_face/v1726924114/rosa-rafael-pxax5WuM7eY-unsplash_zfw0gs.jpg",
   user: "John Doe",
   location: {
     latitude: 12.9716,
@@ -657,7 +658,7 @@ export const demo_profiles = [
   desc: "Relax with a full-body massage and spa",
   date: "16th Oct 2024",
   category: "Salon",
-  thumbnail_url: "https://res.cloudinary.com/dvsl1aslo/image/upload/c_thumb,w_200,g_face/v1725541176/Spa.png",
+  thumbnail_url: "https://res.cloudinary.com/dvsl1aslo/image/upload/c_thumb,w_200,g_face/v1726924114/rosa-rafael-pxax5WuM7eY-unsplash_zfw0gs.jpg",
   user: "Jonna Doe",
   location: {
     latitude: 22.7196,
@@ -671,7 +672,7 @@ export const demo_profiles = [
   desc: "Pamper yourself with a manicure and pedicure session",
   date: "18th Oct 2024",
   category: "Salon",
-  thumbnail_url: "https://res.cloudinary.com/dvsl1aslo/image/upload/c_thumb,w_200,g_face/v1725541176/Manicure_Pedicure.png",
+  thumbnail_url: "https://res.cloudinary.com/dvsl1aslo/image/upload/c_thumb,w_200,g_face/v1726924114/rosa-rafael-pxax5WuM7eY-unsplash_zfw0gs.jpg",
   user: "John Doe",
   location: {
     latitude: 19.0760,
@@ -685,14 +686,15 @@ export const demo_profiles = [
   desc: "Get a complete makeover with a professional stylist",
   date: "20th Oct 2024",
   category: "Salon",
-  thumbnail_url: "https://res.cloudinary.com/dvsl1aslo/image/upload/c_thumb,w_200,g_face/v1725541176/Makeover.png",
+  thumbnail_url: "https://res.cloudinary.com/dvsl1aslo/image/upload/c_thumb,w_200,g_face/v1726924114/rosa-rafael-pxax5WuM7eY-unsplash_zfw0gs.jpg",
   user: "Jonna Doe",
   location: {
-    latitude: 13.0827,
-    longitude: 80.2707,
+    latitude: 28.7152081,
+    longitude: 77.125215,
     city: "Chennai"
   }
 }
+
 
   ];
   

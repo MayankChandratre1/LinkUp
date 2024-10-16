@@ -5,8 +5,9 @@ import React from 'react'
 import { Link, router } from 'expo-router';
 import { User } from '@/types/userTypes';
 
-const ProfileCard = ({profile}:{
-    profile:Partial<User>
+const ProfileCard = ({profile, redirectMode}:{
+    profile:Partial<User>,
+    redirectMode?: "toProfile" | "toFunctions"
 }) => {
   
   
@@ -17,7 +18,12 @@ const ProfileCard = ({profile}:{
   
   return (
     <TouchableOpacity onPress={()=>{
-        router.push(`/(tabs)/userprofile/${profile.id}`)
+        if(redirectMode === "toProfile" || !redirectMode){
+            router.push(`/(tabs)/userprofile/${profile.id}`)
+        }else if(redirectMode === "toFunctions"){
+            router.push(`/(tabs)/functionByPeople/${profile.id }`)
+        }
+
     }}>
         <View className='flex-row gap-1 p-2 rounded-xl items-start bg-neutral my-1'>
       <View>

@@ -23,6 +23,18 @@ const _layout = () => {
         <Stack.Screen name='height' options={{
             headerShown:false
         }} />
+        <Stack.Screen name='Gender' options={{
+            headerShown:false
+        }} />
+        <Stack.Screen name='Interests' options={{
+            headerShown:false
+        }} />
+        <Stack.Screen name='City' options={{
+            headerShown:false
+        }} />
+        <Stack.Screen name='Job' options={{
+            headerShown:false
+        }} />
         
     </Stack>
   )

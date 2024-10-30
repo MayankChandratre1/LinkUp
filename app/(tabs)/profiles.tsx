@@ -33,9 +33,9 @@ const profiles = () => {
     return (
       <>
         <PrimaryHeader />
-        <SafeAreaView className="flex-1 bg-primary px-7">
+        <SafeAreaView className="flex-1 bg-bgcolor px-7">
           <View className='mb-3 items-center justify-center'>
-            <Text className='text-3xl text-vibrant font-isemibold text-center self-start'>Find your vibe...</Text>
+            <Text className='text-3xl text-textcolorII font-isemibold text-center self-start'>Find your vibe...</Text>
           </View>
           {users && <FlatList
           data={users}
@@ -54,18 +54,24 @@ const profiles = () => {
     return (
       <>
       <PrimaryHeader />
-      <SafeAreaView className="flex-1 bg-primary px-7">
-        <View className='mb-3 items-center justify-center'>
-          <Text className='text-3xl text-vibrant font-isemibold text-center self-start'>Hey...</Text>
-          <Text className='text-xl text-vibrant font-iregular text-center self-start'>Let's Complete your profile first.</Text>
-          <CustomButton2 title='profile_completion' containerStyles='p-3 rounded-md m-2' onPress={()=>{
-            router.push("/(auth)/registration/Name")
-          }}>
-            <Text>Let's Go</Text>
-          </CustomButton2>
-        </View>
+      <SafeAreaView className="flex-1 bg-bgcolor px-7 justify-center">
+  <View className='mb-6  justify-center'>
+    <Text className='text-3xl text-textcolorII font-ibold '>👋 Hey!</Text>
+    <Text className='text-2xl text-textcolorII font-isemibold mt-4 '>New here? Let's set you up!</Text>
+    <Text className='text-lg text-textcolorII font-iregular mt-2 '>Complete your profile and dive right in!</Text>
+  </View>
+  
+  <CustomButton2 
+    title='profile_completion' 
+    containerStyles='p-4 rounded-lg bg-accentII/50 mt-6 '
+    onPress={() => {
+      router.push("/(auth)/registration/Name")
+    }}
+  >
+    <Text className='text-md  font-isemibold text-center text-textcolorII'>🚀 Let's Get Started</Text>
+  </CustomButton2>
+</SafeAreaView>
 
-      </SafeAreaView>
     </>
     )
     

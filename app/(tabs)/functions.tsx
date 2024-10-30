@@ -88,7 +88,7 @@ const functions = () => {
   return (
     <>
       <PrimaryHeader />
-    <SafeAreaView className="h-full bg-primary ">
+    <SafeAreaView className="h-full bg-bgcolor ">
         <SearchBar onChangeText={setFilter} value={filter}  />
         <Stories setValue={setActiveCat} activeCat={activeCat} users={users} />
        <View className='flex-row items-center justify-between'>
@@ -99,7 +99,7 @@ const functions = () => {
               
             }}
             className='px-3 flex-row items-center'>
-            <Text className='font-iregular text-sm mr-2 text-vibrant'>
+            <Text className='font-iregular text-sm mr-2 text-textcolorII'>
               {
                 sortByPeople ? "By People":"By Location"
               }

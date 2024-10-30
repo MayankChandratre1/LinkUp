@@ -3,6 +3,9 @@ import firestore , {FirebaseFirestoreTypes, GeoPoint} from '@react-native-fireba
 import auth, { FirebaseAuthTypes } from '@react-native-firebase/auth';
 import { FunctionType } from "@/types/functionTypes";
 import { RequestType } from "@/types/requestTypes";
+
+
+
 export const addUser = async (user:Partial<User>,uid:string) => {
     try{
         const user_created = await firestore().collection('users').doc(uid).set({
@@ -25,7 +28,7 @@ export const updateUser = async ({user}:{
     const uid = currUser?.uid
 
     if(user.personalInfo || user.professionalInfo){
-        console.log("#YESSS");
+     
         
         const prevUser = (await firestore().collection('users').doc(uid).get()).data()
         if(user.personalInfo){
@@ -145,7 +148,7 @@ export const getCollegeListPaged = async (filter: string, lastDoc:FirebaseFirest
         query = query.startAfter(lastDoc)
       }
 
-      const collegeSnapshot = await query.limit(4).get()
+      const collegeSnapshot = await query.limit(7).get()
       const collegeDocs = collegeSnapshot.docs;
       const collegeObjects = collegeDocs.map((doc) => doc.data());
       return {collegeObjects, last: collegeDocs[collegeDocs.length-1]};
@@ -154,6 +157,74 @@ export const getCollegeListPaged = async (filter: string, lastDoc:FirebaseFirest
       return {collegeObjects:null, last: null};
     }
   };
+
+
+  export const getCollegeListPagedKeywords = async (
+    filter: string,
+    lastDoc: FirebaseFirestoreTypes.DocumentData | null
+  ) => {
+    try {
+      const college = filter.trim().toUpperCase(); // Clean up the filter input
+      if (!college) {
+        
+        return { collegeObjects: [], lastDoc: null };
+      }
+  
+      // Start building the query for the `colleges` collection
+      let query = firestore().collection('colleges').orderBy('college');
+  
+      // Apply a filter only if `keywords` exists and college filter is provided
+      if (college !== '') {
+        console.log(`Applying filter for keyword: ${college}`);
+        query = query.where('keywords', 'array-contains', college);
+      }
+  
+      // Add pagination if last document is available
+      if (lastDoc) {
+        console.log(`Applying pagination from last document: ${lastDoc.id}`);
+        query = query.startAfter(lastDoc);
+      }
+  
+      // Execute the query with a limit
+      const collegeSnapshot = await query.limit(7).get();
+      
+      // Process the retrieved documents
+      const collegeDocs = collegeSnapshot.docs;
+      const collegeObjects = collegeDocs.map((doc) => doc.data());
+  
+      console.log("Query successful:", collegeObjects.length, "colleges retrieved.");
+      // console.log(JSON.stringify(collegeObjects));
+      
+  
+      return {
+        collegeObjects,
+        lastDoc: collegeDocs.length > 0 ? collegeDocs[collegeDocs.length - 1] : null,
+      };
+  
+    } catch (err) {
+      console.error("FIRESTORE ERROR:", err);
+      return { collegeObjects: [], lastDoc: null };
+    }
+  };
+  
+
+  export const addCollege = async (collegeData:Partial<{college:string,city:string,keywords:string[]}>) => {
+    const { college, city, keywords } = collegeData
+    let data = {
+      id: college?.toUpperCase().replace(/[.,\/#!$%\^&\*;:{}=\-_`~()]/g, ""),
+      college: college?.toUpperCase().replace(/[.,\/#!$%\^&\*;:{}=\-_`~()]/g, " "),
+      city: city?.toUpperCase().replace(/[.,\/#!$%\^&\*;:{}=\-_`~()]/g, ""),
+      keywords: keywords ? [...keywords ,...college?.toUpperCase().replace(/[.,\/#!$%\^&\*;:{}=\-_`~()]/g, "").split(" ") || ""] : [...college?.toUpperCase().split(" ") || ""]
+    };
+    console.log("##DATA\n"+JSON.stringify(data));
+    
+    try {
+      await firestore().collection('colleges').add(data);
+      console.log('College added successfully!');
+    } catch (err) {
+      console.error('##FIREBASE_ERROR:', JSON.stringify(err));
+    }
+  }
 
   export const getFilteredFunctionsList = async (filter?: string) => {
     try {

@@ -30,7 +30,7 @@ const myprofile = () => {
 
   return (
     
-      <SafeAreaView className='bg-primary h-full'>
+      <SafeAreaView className='bg-bgcolor h-full'>
         <ScrollView contentContainerStyle={{
       height:"100%",
       }}>

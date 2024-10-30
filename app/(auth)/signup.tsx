@@ -133,9 +133,9 @@ const SignInForm = () => {
 }
 
   return (
-    <SafeAreaView className="flex-1 p-4 bg-primary">
+    <SafeAreaView className="flex-1 p-4 bg-bgcolor">
       <ScrollView className="h-full">
-        <Text className="text-vibrant font-ibold text-xl mb-4">Sign Up</Text>
+        <Text className="text-textcolorII font-ibold text-xl mb-4">Sign Up</Text>
         {<Text className="text-red-500">{error}</Text>}
 
         
@@ -143,13 +143,13 @@ const SignInForm = () => {
           !verificationId ? 
           <>
             <View className='flex-row items-center mb-4'>
-              <CustomButton2 title="country" containerStyles='m-2 p-3 rounded-md bg-neutral' onPress={()=>{
+              <CustomButton2 title="country" containerStyles='m-2 p-3 rounded-md bg-transparent border border-accentII' onPress={()=>{
                 setShow(true)
               }}>
                 <Text className=' font-iregular'>{countryCode}</Text>
               </CustomButton2>
               <TextInput
-                className="border border-neutral p-2 flex-1 rounded font-iregular"
+                className="border border-accentII p-2 flex-1 rounded font-iregular"
                 placeholder="Phone"
                 value={phone}
                 onChangeText={setPhone}
@@ -161,7 +161,7 @@ const SignInForm = () => {
               
             </View>
             <TextInput
-          className="border border-neutral p-2 mb-4 rounded font-iregular"
+          className="border border-accentII p-2 mb-4 rounded font-iregular"
           placeholder="Email"
           value={email}
           onChangeText={setEmail}
@@ -170,7 +170,7 @@ const SignInForm = () => {
         />
 
         <TextInput
-          className="border border-neutral p-2 mb-4 rounded font-iregular"
+          className="border border-accentII p-2 mb-4 rounded font-iregular"
           placeholder="Password"
           value={password}
           onChangeText={setPassword}
@@ -178,21 +178,21 @@ const SignInForm = () => {
         />
 
         <TextInput
-          className="border border-neutral p-2 mb-4 rounded font-iregular"
+          className="border border-accentII p-2 mb-4 rounded font-iregular"
           placeholder="Confirm Password"
           value={confirmPassword}
           onChangeText={setConfirmPassword}
           secureTextEntry
         />
-            <TouchableOpacity onPress={handleSignIn} className="bg-vibrant p-3 rounded-md mt-4">
-                <Text className="font-iregular text-white text-center">{loading ? "Sending OTP...":"Sign Up"}</Text>
+            <TouchableOpacity onPress={handleSignIn} className="bg-primary p-3 rounded-md mt-4">
+                <Text className="font-iregular text-textcolorIII text-center">{loading ? "Sending OTP...":"Sign Up"}</Text>
             </TouchableOpacity>
-            <View className='bg-primary mt-4'>
+            <View className='bg-bgcolor mt-4'>
             <Text className='text-center font-ilight'>
                 Have an account? <TouchableOpacity onPress={()=>{
                   router.push("/(auth)/signin3")
                 }}>
-                    <Text className='underline text-vibrant font-ilight'>Sign In</Text>
+                    <Text className='underline text-textcolorII font-iregular'>Sign In</Text>
                 </TouchableOpacity>
              </Text>
              </View>
@@ -217,7 +217,7 @@ const SignInForm = () => {
               return (
                 <TextInput
                 ref={(el) => otpBoxes.current[index] = el}
-              className="border-b border-secondary p-2 text-center font-isemibold"
+              className="border-b border-accentII p-2 text-center font-isemibold"
               placeholder=""
               value={otpCode[index]}
               onChangeText={(code)=>{
@@ -239,17 +239,17 @@ const SignInForm = () => {
             </View>
             <CustomButton2
               title="Verify OTP"
-              containerStyles="p-3 rounded-md m-2"
+              containerStyles="p-3 bg-primary rounded-md m-2"
               onPress={async () => {
                 await verifyOtp(verificationId!, otpCode.join(''));
               }}
             >
-              {!phoneverified ? <Text className='font-iregular'>{loading ? "Verifying...":"Verify"}</Text>:<Text className='font-iregular'>Verified</Text>}
+              {!phoneverified ? <Text className='text-textcolorIII font-iregular'>{loading ? "Verifying...":"Verify"}</Text>:<Text className='text-textcolorIII font-iregular'>Verified</Text>}
             </CustomButton2>
             {emailSent && phoneverified && <View>
-              <Text className='text-center my-2 mt-4 font-ilight text-sm text-vibrant'>We have also sent you an verification email...</Text>
-              <CustomButton2 title='addemail' onPress={checkVerification} containerStyles='p-3  my-2'>
-          <Text className=' font-iregular'>I Have Verified My Email</Text>
+              <Text className='text-center my-2 mt-4 font-iregular text-sm text-textcolorI'>We have also sent you an verification email...</Text>
+              <CustomButton2 title='addemail' onPress={checkVerification} containerStyles='p-3 bg-primary  my-2'>
+          <Text className='text-textcolorIII font-iregular'>I Have Verified My Email</Text>
            </CustomButton2>
            
               </View>}

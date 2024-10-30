@@ -9,7 +9,7 @@ import { router } from 'expo-router'
 
 const PrimaryHeader = () => {
   return (
-    <SafeAreaView className='fixed top-0 bg-primary flex-row justify-between items-center px-2'>
+    <SafeAreaView className='fixed top-0 bg-bgcolor flex-row justify-between items-center px-2'>
         <View>
              <Image 
                 source={Logo}

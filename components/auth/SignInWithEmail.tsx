@@ -5,10 +5,14 @@ import { getCurrentUser, signInEmail, signUpEmail } from '@/firebase/services/rn
 import { router } from 'expo-router';
 import { CustomButton2 } from '../ui/CustomButton';
 import { TouchableOpacity } from 'react-native';
+import { schedulePushNotification } from '@/lib/notifications';
+import { useNotifications } from '@/hooks/useNotifications';
+import { updateUser } from '@/firebase/services/rnFirebase/db';
 
 const SignInWithMail = ({changeMode}:{
     changeMode?:()=>void
 }) => {
+  const {notification, expoPushToken} = useNotifications();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [isUser, setIsUser] = useState(false);
@@ -31,6 +35,10 @@ const SignInWithMail = ({changeMode}:{
     if (user) {
       console.log('User signed up:', user);
       setLoading(false)
+      await schedulePushNotification("Hey "+user.user.email, "You have successfully logged in");
+      if(expoPushToken){
+        await updateUser({user:{expoPushToken:expoPushToken}});
+      }
       router.push("/(tabs)/profiles")
     } else {
         setError(true)
@@ -39,12 +47,12 @@ const SignInWithMail = ({changeMode}:{
   };
 
   return (
-    <SafeAreaView className='flex-1 p-4 bg-primary'>
+    <SafeAreaView className='flex-1 p-4 bg-bgcolor'>
       <ScrollView className="h-full">
-        <Text className="text-vibrant font-ibold text-xl mb-4">Sign In</Text>
+        <Text className="text-textcolorII font-ibold text-xl mb-4">Sign In</Text>
 
         <TextInput
-          className="border border-neutral p-2 mb-4 rounded font-iregular"
+          className="border border-accentII p-2 mb-4 rounded font-iregular"
           placeholder="Email"
           value={email}
           onChangeText={setEmail}
@@ -53,7 +61,7 @@ const SignInWithMail = ({changeMode}:{
         />
 
         <TextInput
-          className="border border-neutral p-2 mb-4 rounded font-iregular"
+          className="border border-accentII p-2 mb-4 rounded font-iregular"
           placeholder="Password"
           value={password}
           onChangeText={setPassword}
@@ -62,15 +70,15 @@ const SignInWithMail = ({changeMode}:{
 
     
         {error && <Text className='text-red-500 font-iregular text-center my-2'>Invalid Credentials!!</Text>}
-        <CustomButton2 title="Sign In" onPress={handleSignIn} containerStyles="p-3 rounded-md m-2 bg-vibrant">
-            <Text className='text-primary font-isemibold'>
+        <CustomButton2 title="Sign In" onPress={handleSignIn} containerStyles="p-3 rounded-md m-2 bg-primary">
+            <Text className='text-textcolorIII font-isemibold'>
                 {loading ? "Signing In...":"Sign In"}
             </Text>
         </CustomButton2>
-        <View className='bg-primary mt-4'>
+        <View className='bg-bgcolor mt-4'>
             <Text className='text-center font-ilight'>
                 Dont Have an account? <TouchableOpacity onPress={changeMode}>
-                    <Text className='underline text-vibrant font-ilight'>Sign Up</Text>
+                    <Text className='underline text-textcolorII font-iregular'>Sign Up</Text>
                 </TouchableOpacity>
             </Text>
         </View>

@@ -1,5 +1,9 @@
 import auth, { FirebaseAuthTypes } from '@react-native-firebase/auth';
-import { addUser } from './db';
+import { addUser, updateUser } from './db';
+import { scheduleNotificationAsync } from 'expo-notifications';
+import { schedulePushNotification } from '@/lib/notifications';
+
+
 export const sendOtp = async (phone:string) => {
     try{
         const vid = await auth().signInWithPhoneNumber(phone);
@@ -27,6 +31,7 @@ export const verifyPhone = async (vid:FirebaseAuthTypes.ConfirmationResult, code
 export const signInEmail = async (email:string, password:string) => {
     try{
         const user = await auth().signInWithEmailAndPassword(email, password);
+        
         return user
     }catch(err){
         console.error("FIREBASE ERROR:\n"+err);
@@ -52,6 +57,9 @@ export const signUpEmail = async (email:string, password:string) => {
 
 export const signOut = async () => {
     try{
+        await updateUser({ user :{
+            expoPushToken: null
+        }})
         await auth().signOut()
         return true
     }catch(err){

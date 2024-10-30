@@ -41,7 +41,7 @@ export const useNotifications = () : PushNotificationState => {
             token = await Notifications.getExpoPushTokenAsync({
                 projectId: Constants.expoConfig?.extra?.eas?.projectId,
             })
-
+       
             if(Platform.OS === "android"){
                 Notifications.setNotificationChannelAsync("default", {
                     name: "default",

@@ -7,6 +7,8 @@ import { calculatePercentage } from '@/lib/profileCompletion'
 import { getCurrentUserInfo } from '@/firebase/services/rnFirebase/db'
 import { router } from 'expo-router'
 import Noti from '@/components/ui/test/Noti'
+import OverpassAPIComponent from '@/components/ui/test/Overpass'
+import Ola from '@/components/ui/test/Ola'
 
 const newmyprofile = () => {
     const [user, setUser] = useState<Partial<User> | null>(null)
@@ -27,7 +29,8 @@ const newmyprofile = () => {
 
   return (
     <SafeAreaView>
-      <Noti />
+      <Ola />
+      {/* <OverpassAPIComponent /> */}
     </SafeAreaView>
   )
 }

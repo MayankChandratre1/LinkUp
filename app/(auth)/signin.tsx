@@ -78,9 +78,9 @@ const SignInForm = () => {
   };
 
   return (
-    <SafeAreaView className="flex-1 p-4 bg-primary">
+    <SafeAreaView className="flex-1 p-4 bg-bgcolor">
       <ScrollView className="h-full">
-        <Text className="text-vibrant text-xl mb-4">Sign In</Text>
+        <Text className="text-textcolorII text-xl mb-4">Sign In</Text>
         {error && <Text className="text-red-500">ERROR IN VERIFICATION!</Text>}
 
         
@@ -104,7 +104,7 @@ const SignInForm = () => {
               />
             </View>
             <TouchableOpacity onPress={handleSignIn} className="bg-vibrant p-3 rounded-md mt-4">
-                <Text className="text-white text-center">{loading ? "Sending OTP...":"Sign In"}</Text>
+                <Text className="text-textcolorIII text-center">{loading ? "Sending OTP...":"Sign In"}</Text>
             </TouchableOpacity>
           </>:null
         }
@@ -126,7 +126,7 @@ const SignInForm = () => {
               return (
                 <TextInput
                 ref={(el) => otpBoxes.current[index] = el}
-              className="border-b border-secondary p-2 text-center font-isemibold"
+              className="border-b border-accentI p-2 text-center font-isemibold"
               placeholder=""
               value={otpCode[index]}
               onChangeText={(code)=>{

@@ -42,39 +42,39 @@ const SocialsModal = ({socials, setShow}:{
   }
 
   return (
-    <View className=' bg-primary shadow-lg py-5 w-full h-full items-center z-50 px-3 absolute'>
+    <View className=' bg-bgcolor shadow-lg py-5 w-full h-full items-center z-50 px-3 absolute'>
         <View className=' w-full items-end mb-3'>
           <TouchableOpacity className='p-2' onPress={()=>{
             setShow(false)
           }}><Text className='font-ilight text-xl'>X</Text></TouchableOpacity>
         </View>
         <View className='w-full'>
-            <Text className='text-lg text-vibrant font-isemibold my-2'>Instagram</Text>
+            <Text className='text-lg text-textcolorII font-isemibold my-2'>Instagram</Text>
             <TextInput
              onChangeText={setInstagram}
              value={instagram}
              placeholder='Instagram'
-             className='bg-primary font-iregular shadow-lg text-sm p-2 rounded-md border'
+             className='bg-bgcolor font-iregular shadow-lg text-sm p-2 rounded-md border'
              
             />
         </View>
         <View className='w-full'>
-            <Text className='text-lg text-vibrant font-isemibold my-2'>LinkedIn</Text>
+            <Text className='text-lg text-textcolorII font-isemibold my-2'>LinkedIn</Text>
             <TextInput
              onChangeText={setLinkedin}
              value={linkedin}
              placeholder='LinkedIn'
-             className='bg-primary font-iregular shadow-lg text-sm p-2 rounded-md border'
+             className='bg-bgcolor font-iregular shadow-lg text-sm p-2 rounded-md border'
             />
         </View>
         
         <View className='w-full'>
-            <Text className='text-lg text-vibrant font-isemibold my-2'>X (twitter)</Text>
+            <Text className='text-lg text-textcolorII font-isemibold my-2'>X (twitter)</Text>
             <TextInput
              onChangeText={setXcom}
              value={xcom}
              placeholder='X (twitter)'
-             className='bg-primary font-iregular shadow-lg text-sm p-2 rounded-md border'
+             className='bg-bgcolor font-iregular shadow-lg text-sm p-2 rounded-md border'
              
             />
         </View>
@@ -107,7 +107,7 @@ const SocialInput = ({setText, value}:{
              onChangeText={setText}
              value={value}
              placeholder='link to your account'
-             className='bg-primary font-iregular shadow-lg text-sm p-2 rounded-md border'
+             className='bg-bgcolor font-iregular shadow-lg text-sm p-2 rounded-md border'
             />
         </View>
     )
@@ -156,9 +156,9 @@ const SocialModal2 = ({socials, setShow}:{
  
   
   return ( 
-    <View className='bg-primary rounded-md shadow-lg py-5 w-[90%] h-[300px] justify-center items-center px-3 z-50 absolute'>
+    <View className='bg-bgcolor rounded-md shadow-lg py-5 w-[90%] h-[300px] justify-center items-center px-3 z-50 absolute'>
         <View className=' w-full flex-row justify-between items-center mb-3'>
-        <Text className='text-xl font-isemibold text-vibrant'>Socials</Text>
+        <Text className='text-xl font-isemibold text-textcolorII'>Socials</Text>
           <TouchableOpacity className='p-2' onPress={()=>{
             setShow(false)
           }}>
@@ -194,19 +194,19 @@ const SocialModal2 = ({socials, setShow}:{
             onChangeText={setInstagram}
             value={instagram}
             placeholder='link to your account'
-            className='bg-primary font-iregular shadow-lg text-sm p-2 rounded-md border'
+            className='bg-bgcolor font-iregular shadow-lg text-sm p-2 rounded-md border'
            />}
         {selected === 'linkedin' && <TextInput
             onChangeText={setLinkedin}
             value={linkedin}
             placeholder='link to your account'
-            className='bg-primary font-iregular shadow-lg text-sm p-2 rounded-md border'
+            className='bg-bgcolor font-iregular shadow-lg text-sm p-2 rounded-md border'
            />}
         {selected === 'xcom' && <TextInput
             onChangeText={setXcom}
             value={xcom}
             placeholder='link to your account'
-            className='bg-primary font-iregular shadow-lg text-sm p-2 rounded-md border'
+            className='bg-bgcolor font-iregular shadow-lg text-sm p-2 rounded-md border'
            />}
         {error && <>
             <Text className='text-red-500 font-iregular text-center my-3 '>

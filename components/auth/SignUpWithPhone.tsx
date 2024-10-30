@@ -81,9 +81,9 @@ const SignUpWithPhone = ({changeMode}:{
   };
 
   return (
-    <SafeAreaView className="flex-1 p-4 bg-primary">
+    <SafeAreaView className="flex-1 p-4 bg-bgcolor">
       <ScrollView className="h-full">
-        <Text className="text-vibrant text-xl mb-4 font-ibold">Sign Up</Text>
+        <Text className="text-textcolorII text-xl mb-4 font-ibold">Sign Up</Text>
         
 
         
@@ -108,12 +108,12 @@ const SignUpWithPhone = ({changeMode}:{
             </View>
             {error && <Text className="text-red-500 font-iregular text-center my-2">Something Went Wrong!</Text>}
             <TouchableOpacity onPress={handleSignIn} className="bg-vibrant p-3 rounded-md mt-4">
-                <Text className="text-white text-center font-isemibold">{loading ? "Sending OTP...":"Sign Up"}</Text>
+                <Text className="text-textcolorIII text-center font-isemibold">{loading ? "Sending OTP...":"Sign Up"}</Text>
             </TouchableOpacity>
-            <View className='bg-primary mt-4'>
+            <View className='bg-bgcolor mt-4'>
             <Text className='text-center font-ilight'>
                 Have an account? <TouchableOpacity onPress={changeMode}>
-                    <Text className='underline text-vibrant font-ilight'>Sign In</Text>
+                    <Text className='underline text-textcolorII font-ilight'>Sign In</Text>
                 </TouchableOpacity>
             </Text>
         </View>
@@ -137,7 +137,7 @@ const SignUpWithPhone = ({changeMode}:{
               return (
                 <TextInput
                 ref={(el) => otpBoxes.current[index] = el}
-              className="border-b border-secondary p-2 text-center font-isemibold"
+              className="border-b border-accentI p-2 text-center font-isemibold"
               placeholder=""
               value={otpCode[index]}
               onChangeText={(code)=>{

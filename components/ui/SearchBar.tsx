@@ -14,9 +14,9 @@ const SearchBar = ({onChangeText, value}:{
             onChangeText={onChangeText}
             value={value}
             placeholder='Search'
-            className='bg-primary flex-1 font-iregular shadow-lg text-lg p-2 rounded-md '
+            className='bg-bgcolor flex-1 font-iregular shadow-lg text-lg p-2 rounded-md '
       />
-      <CustomButton2 title='search-button' containerStyles='bg-primary '>
+      <CustomButton2 title='search-button' containerStyles='bg-bgcolor '>
        <AntDesign name='search1' size={24} className='' />
       </CustomButton2>
       </View>

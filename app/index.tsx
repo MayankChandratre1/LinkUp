@@ -6,7 +6,7 @@ import { router } from "expo-router";
 
 export default function Index() {
   return (
-   <SafeAreaView className="h-full bg-primary">
+   <SafeAreaView className="h-full bg-bgcolor">
     <ScrollView contentContainerStyle={{
       height:"100%"
     }}>
@@ -25,12 +25,12 @@ export default function Index() {
         <View className="px-3 flex-1 justify-end ">
           <Text className="text-secondary text-center text-lg font-iregular mt-5">Meet. Connect. Enjoy Together With{" "}
           </Text>
-          <Text className="text-vibrant text-xl font-ibold text-center">LinkUp</Text>
+          <Text className="text-textcolorII text-xl font-ibold text-center">LinkUp</Text>
         </View>
       </View>
       <View className="flex-1 justify-center items-center">
-        <CustomButton title="Get Started" containerStyles="w-3/5" textStyles="font-isemibold text-sm" onPress={()=>{
-          router.push("/(auth)/signup")
+        <CustomButton title="Get Started" containerStyles="bg-primary w-3/5" textStyles="font-isemibold text-textcolorIII text-sm" onPress={()=>{
+          router.push("/(auth)/registration/EducationAndJob")
         }} />
       </View>
       </View>

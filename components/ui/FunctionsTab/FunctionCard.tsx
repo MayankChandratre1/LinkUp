@@ -20,7 +20,7 @@ const FunctionCard = memo(({function_item}:{
                 <View className='justify-between py-2'>
                     <View>
                         <Text className='font-isemibold'>{function_item.title}</Text>
-                        <Text className='text-[10px] text-vibrant font-iregular'>{function_item.location?.city}</Text>
+                        <Text className='text-[10px] text-textcolorII font-iregular'>{function_item.location?.city}</Text>
                         <Text className='text-[12px] font-ilight w-[70%]'>{function_item.desc}</Text>
                     </View>
                     <View>

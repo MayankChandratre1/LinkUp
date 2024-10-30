@@ -7,11 +7,10 @@ import { CustomButton2 } from '@/components/ui/CustomButton';
 import { router } from 'expo-router';
 import PickerList from '@/components/ui/Picker/PickerList';
 import EducationPicker from '@/components/ui/Registration/EducationPicker';
-import CollegePicker from '@/components/ui/Registration/CollegePicker';
 
-const EducationAndJob = () => {
-  const [education, setEducation] = useState('');
-  const [field, setField] = useState('');
+const Job = () => {
+  const [designation, setDesignation] = useState('');
+  const [company, setCompany] = useState('');
   const [error, setError] = useState('');
   const [college, setCollege] = useState('')
   const [filtercity, setFiltercity] = useState('No city')
@@ -57,15 +56,14 @@ const EducationAndJob = () => {
 
 
   const handleChange = (name:string) => {
-      setEducation(name)
+      setDesignation(name)
   }
 
   const handleNext = async () => {
-    if(education.trim() && college.trim()){
+    if(designation.trim() && company.trim()){
       const success = await updateUser({ user: {
         professionalInfo:{
-          education: field.trim() ?education.trim()+ ", "+field.trim() : education.trim(),
-          college: college.trim()
+          current_job: company.trim() ?designation.trim()+ ", "+company.trim() : designation.trim(),
         }
       } })
       await updateUser({ user: {
@@ -73,7 +71,7 @@ const EducationAndJob = () => {
       } })
       if(success)
         
-        router.push("/(auth)/registration/City")
+        router.push("/(auth)/registration/Interests")
       else
         setError("Error in setting name try again!")
     }else{
@@ -91,34 +89,35 @@ const EducationAndJob = () => {
       }}
     >
       <View className="h-full justify-center">
-        <Text className="text-textcolorII text-3xl font-ibold mb-4 text-center">
-          Let's get professional now...
-        </Text>
-        <Text className="text-textcolorII text-lg font-iregular mb-6 text-center">
-          What is your education and college?
+        <Text className="text-textcolorII text-3xl font-ibold mb-6 text-center">
+          What do you do for living ?
         </Text>
   
         {error && <Text className="text-red-500 mb-2">{error}</Text>}
   
         <View className="mb-4">
-          
-          <EducationPicker setValue={setEducation} />
-          
+          <Text className="font-iregular text-textcolorII mb-1">Designation</Text>
+          <TextInput
+            className="border border-neutral p-3 rounded text-md font-iregular mt-2"
+            placeholder="e.g. Senior Developer"
+            value={designation}
+            onChangeText={setDesignation}
+            autoCapitalize="none"
+          />
+        </View>
+
+        <View className="mb-4">
+          <Text className="font-iregular text-textcolorII mb-1">Company</Text>
+          <TextInput
+            className="border border-neutral p-3 rounded text-md font-iregular mt-2"
+            placeholder="e.g. ABC Pvt limited"
+            value={company}
+            onChangeText={setCompany}
+            autoCapitalize="none"
+          />
         </View>
         
-        <View className="mb-6">
        
-          {/* <CustomButton2
-            title="college-picker"
-            containerStyles="bg-transparent items-start mb-4"
-            onPress={() => setShow(true)}
-          >
-            <Text className="p-3 text-lg font-iregular text-textcolorII/70">
-              {college || "Choose a college"}
-            </Text>
-          </CustomButton2> */}
-          <CollegePicker setValue={setCollege} />
-        </View>
   
         <CustomButton2
           title="Next"
@@ -133,7 +132,7 @@ const EducationAndJob = () => {
         <CustomButton2
           title="Skip"
           containerStyles="p-4 rounded-lg bg-accentII mb-4 w-full"
-          onPress={() => router.push("/(auth)/registration/City")}
+          onPress={() => router.push("/(auth)/registration/Interests")}
         >
           <Text className="text-md font-semibold text-center text-textcolorIII">
             Skip
@@ -159,4 +158,4 @@ const EducationAndJob = () => {
   );
 }
 
-export default EducationAndJob
+export default Job

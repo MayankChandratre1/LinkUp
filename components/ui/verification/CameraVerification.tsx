@@ -29,7 +29,7 @@ const CameraVerification = ({userProfile}:{
       setLoading(true)
       try{
         const response = await axios.post("http://192.168.1.6:5000/verify-face",{
-            img1_url:userProfile,
+            img1_url:photo,
             img2_url:userProfile
           })
     
@@ -54,13 +54,7 @@ const CameraVerification = ({userProfile}:{
     }
   };
 
-//   if(loading){
-//     return (
-//         <View>
-//             <Text>{photo}</Text>
-//         </View>
-//     )
-//   }
+
 
   return (
     <>

@@ -43,14 +43,14 @@ import { updateUser } from "@/firebase/services/rnFirebase/db";
 //   }
 
 //   return (
-//     <SafeAreaView className='flex-1 p-4 bg-primary'>
+//     <SafeAreaView className='flex-1 p-4 bg-bgcolor'>
 //       <ScrollView className="flex-1" contentContainerStyle={{
 //         height:'100%',
 //       }}>
 
 //         <View className="h-full justify-center ">
-//         <Text className="text-vibrant text-md mb-4">Let's start simple...</Text>
-//         <Text className="text-vibrant text-xl font-ibold mb-4">What is your name?</Text>
+//         <Text className="text-textcolorII text-md mb-4">Let's start simple...</Text>
+//         <Text className="text-textcolorII text-xl font-ibold mb-4">What is your name?</Text>
 //         {error && <Text className='text-red-500'>{error}</Text>}
 
 //         <TextInput
@@ -169,65 +169,75 @@ const DobAndHeightForm = () => {
           dateOfBirth:date
         }
       } });
-      if (success) router.push("/(auth)/registration/height")
+      if (success) router.push("/(auth)/registration/Gender")
       else setError("Error in setting name try again!");
     }
   };
 
   return (
-    <SafeAreaView className="flex-1 p-4 bg-primary">
-      <ScrollView
-        className="flex-1"
-        contentContainerStyle={{
-          height: "100%",
-        }}
-      >
-        <View className="h-full justify-center ">
-          <Text className="text-vibrant text-md mb-4">
-            Now, Let's get some numbers
-          </Text>
-
-          {error && <Text className="text-red-500">{error}</Text>}
-          <View className="my-5 ">
-            <Text className="text-vibrant text-xl font-ibold mb-4">
-              How Old are you ?
-            </Text>
-            <Text className="text-center text-secondary">
-              You are{" "}
-              <Text className="font-isemibold text-vibrant/70">
-                {calculateAge(date)} Years old!
-              </Text>{" "}
-            </Text>
-            <CustomButton2
-              title="Create New Account"
-              containerStyles="p-3 rounded-md m-2"
-              onPress={showDatepicker}
-            >
-              <Text className="">
-                <Text className="text-lg text-center font-ibold text-vibrant mb-3">
-                  {dateSTringFormatter(date.toDateString())}
-                </Text>
-              </Text>
-            </CustomButton2>
-          </View>
+    <SafeAreaView className="flex-1 p-4 bg-bgcolor">
+  <ScrollView
+    className="flex-1"
+    contentContainerStyle={{
+      height: "100%",
+    }}
+  >
+    <View className="h-full justify-center items-center">
+     
+      {error && <Text className="text-red-500 mb-2 text-center">{error}</Text>}
       
-          
+      <View className="my-5 w-full">
+        <Text className="text-textcolorII text-3xl font-ibold mb-4 text-center">
+          How old are you?
+        </Text>
+        
+        <Text className="text-center text-textcolorI mb-4">
+          You are{" "}
+          <Text className="font-isemibold text-textcolorII/70">
+            {calculateAge(date)} years old!
+          </Text>
+        </Text>
 
-          {isValidAge ? <CustomButton2
-            title="Create New Account"
-            containerStyles="p-3 rounded-md m-2"
-            onPress={handleNext}
-          >
-            <Text className="">Next</Text>
-          </CustomButton2>:<Text className="text-center text-red-400">You must be  atleast 18 year old to use this app</Text>}
-        <CustomButton2 title='Create New Account' containerStyles='p-3 rounded-md m-2' onPress={()=>{
-          router.push("/(auth)/registration/height")
-        }}>
-          <Text className=''>SKip</Text>
+        <CustomButton2
+          title="Select Date"
+          containerStyles="p-4 rounded-lg bg-accentII/30  mb-4 w-full"
+          onPress={showDatepicker}
+        >
+          <Text className="text-lg text-center font-ibold text-textcolorII">
+            {dateSTringFormatter(date.toDateString())}
+          </Text>
         </CustomButton2>
-        </View>
-      </ScrollView>
+      </View>
+
+      {isValidAge ? (
+        <CustomButton2
+          title="Next"
+          containerStyles="p-4 rounded-lg bg-primary mb-4 w-full"
+          onPress={handleNext}
+        >
+          <Text className="text-md font-semibold text-center text-textcolorIII">
+            Next
+          </Text>
+        </CustomButton2>
+      ) : (
+        <Text className="text-center text-red-400 mb-4">
+          You must be at least 18 years old to use this app
+        </Text>
+      )}
+
+      {/* <CustomButton2
+        title="Skip"
+        containerStyles="p-4 rounded-lg bg-secondary mb-4 w-full"
+        onPress={() => router.push("/(auth)/registration/height")}
+      >
+        <Text className="text-md font-semibold text-center text-primary">
+          Skip
+        </Text>
+      </CustomButton2> */}
+    </View>
+  </ScrollView>
     </SafeAreaView>
+
   );
 };
 

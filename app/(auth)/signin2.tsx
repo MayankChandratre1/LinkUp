@@ -38,13 +38,13 @@ const SignInForm = () => {
   };
 
   return (
-    <SafeAreaView className='flex-1 p-4 bg-primary'>
+    <SafeAreaView className='flex-1 p-4 bg-bgcolor'>
       <ScrollView className="flex-1" contentContainerStyle={{
         height:'100%',
       }}>
       
         <View className="h-full justify-center ">
-        <Text className="text-vibrant text-xl mb-4">Sign In</Text>
+        <Text className="text-textcolorII text-xl mb-4">Sign In</Text>
         {error && <Text className='text-red-500'>ERROR IN VERIFICATION!</Text>}
 
         <TextInput

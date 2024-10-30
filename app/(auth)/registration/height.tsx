@@ -55,82 +55,104 @@ const HeightForm = () => {
   };
 
   return (
-    <SafeAreaView className="flex-1 p-4 bg-primary">
-      <ScrollView
-        className="flex-1"
-        contentContainerStyle={{
-          height: "100%",
-        }}
-      >
-        <View className="h-full justify-center ">
-          <Text className="text-vibrant text-md mb-4">
-            Now, Let's get some numbers
-          </Text>
+    <SafeAreaView className="flex-1 p-4 bg-bgcolor">
+  <ScrollView
+    className="flex-1"
+    contentContainerStyle={{
+      height: "100%",
+    }}
+  >
+    <View className="h-full justify-center items-center">
+    
 
-          
-          <View>
-            <Text className="text-vibrant text-xl font-ibold mb-2">
-              What's your height ?
-            </Text>
-            <CustomButton2 title="toggle units" containerStyles="bg-transparent items-start rounded-md mb-4 w-1/2" onPress={()=>{
-                if(isInch){
-                  setCm(feetInchesToCm(foot, inch))
-                }else{
-                  cmToFeetInchesStates(cm)
-                }
-                setIsInch(prev => !prev)
-            }}>
-                <Text className="font-iregular underline text-vibrant">Switch to {isInch ? "Centimeters":"Foot-Inch"}</Text>
-            </CustomButton2>
-            {isInch ? 
-                <View className="flex-row items-center gap-2">
-                <TextInput
-                  className="border flex-1 border-neutral p-2 rounded"
-                  placeholder="Feet"
-                  value={foot.toString()}
-                  onChangeText={setFoot}
-                  keyboardType="numeric"
-                  autoCapitalize="none"
-                />
-                <TextInput
-                  className="border flex-1 border-neutral p-2 rounded"
-                  placeholder="Inch"
-                  value={inch}
-                  onChangeText={setInch}
-                  keyboardType="numeric"
-                  autoCapitalize="none"
-                />
-                </View>:
-                <View className="flex-row items-center gap-2">
-                <TextInput
-                  className="border flex-1 border-neutral p-2 mt-4 rounded"
-                  placeholder="Centimeters"
-                  value={cm.toString()}
-                  onChangeText={setCm}
-                  keyboardType="numeric"
-                  autoCapitalize="none"
-                />
-                </View>
+      <View className="my-6 w-full">
+        <Text className="text-textcolorII text-3xl font-ibold mb-4 text-center">
+          What's your height?
+        </Text>
+
+        <CustomButton2
+          title="toggle units"
+          containerStyles="bg-transparent items-center mb-4"
+          onPress={() => {
+            if (isInch) {
+              setCm(feetInchesToCm(foot, inch));
+            } else {
+              cmToFeetInchesStates(cm);
             }
-          </View>
-          
-          
-          <CustomButton2
-            title="Create New Account"
-            containerStyles="p-3 rounded-md m-2"
-            onPress={handleNext}
-          >
-            <Text className="">Next</Text>
-          </CustomButton2>
-          
-        <CustomButton2 title='Create New Account' containerStyles='p-3 rounded-md m-2' onPress={()=>{
-          router.push("/(auth)/registration/EducationAndJob")
-        }}>
-          <Text className=''>SKip</Text>
+            setIsInch((prev) => !prev);
+          }}
+        >
+          <Text className="font-iregular underline text-textcolorII">
+            Switch to {isInch ? "Centimeters" : "Foot-Inch"}
+          </Text>
         </CustomButton2>
-        </View>
-      </ScrollView>
-    </SafeAreaView>
+
+        {isInch ? (
+          <View className="flex-row items-center justify-center gap-2 mb-6">
+            <View className="border flex-1 border-accentI rounded text-center h-14 flex-row items-center px-2">
+              <TextInput
+              className="flex-1 border-neutral p-3 rounded text-center"
+              placeholder=""
+              value={foot.toString()}
+              onChangeText={setFoot}
+              keyboardType="numeric"
+              autoCapitalize="none"
+              />
+              <Text className="px-4 text-textcolorI/50 font-iregular text-sm">feet</Text>
+            </View>
+            <View className="border flex-1 border-accentI rounded text-center h-14 flex-row items-center px-2">
+              <TextInput
+              className="flex-1 border-neutral p-3 rounded text-center"
+              placeholder=""
+              value={inch.toString()}
+              onChangeText={setInch}
+              keyboardType="numeric"
+              autoCapitalize="none"
+              />
+              <Text className="px-4 text-textcolorI/50 font-iregular text-sm">inch</Text>
+            </View>
+            
+          </View>
+        ) : (
+          <View className="items-center">
+           <View className="border border-accentI rounded w-1/2 text-center flex-row items-center px-2">
+           <TextInput
+              className="p-3 rounded text-center flex-1"
+              placeholder=""
+              value={cm.toString()}
+              onChangeText={setCm}
+              keyboardType="numeric"
+              autoCapitalize="none"
+            />
+            <Text className="px-4 text-textcolorI/50 font-iregular text-sm">cm</Text>
+           </View>
+          </View>
+        )}
+      </View>
+
+      <CustomButton2
+        title="Next"
+        containerStyles="p-4 rounded-lg bg-primary mb-4 w-full"
+        onPress={handleNext}
+      >
+        <Text className="text-md font-semibold text-center text-textcolorIII">
+          Next
+        </Text>
+      </CustomButton2>
+
+      {/* <CustomButton2
+        title="Skip"
+        containerStyles="p-4 rounded-lg bg-secondary mb-4 w-full"
+        onPress={() => router.push("/(auth)/registration/EducationAndJob")}
+      >
+        <Text className="text-md font-semibold text-center text-primary">
+          Skip
+        </Text>
+      </CustomButton2> */}
+    </View>
+  </ScrollView>
+</SafeAreaView>
+
   );
 };
 

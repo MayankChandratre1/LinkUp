@@ -1,0 +1,37 @@
+
+export const qualifications_list = {
+    qualifications: [
+      { abbr: "BA", full: "Bachelor of Arts" },
+      { abbr: "BSc", full: "Bachelor of Science" },
+      { abbr: "BTech", full: "Bachelor of Technology" },
+      { abbr: "LLB", full: "Bachelor of Laws" },
+      { abbr: "MBBS", full: "Bachelor of Medicine, Bachelor of Surgery" },
+      { abbr: "MSc", full: "Master of Science" },
+      { abbr: "MTech", full: "Master of Technology" },
+      { abbr: "MCom", full: "Master of Commerce" },
+      { abbr: "LLM", full: "Master of Laws" },
+      { abbr: "PhD", full: "Doctor of Philosophy" },
+      { abbr: "CA", full: "Chartered Accountant" },
+      { abbr: "CS", full: "Company Secretary" },
+      { abbr: "ICWA", full: "Institute of Cost and Works Accountants of India" },
+      { abbr: "BBA", full: "Bachelor of Business Administration" },
+      { abbr: "MBA", full: "Master of Business Administration" },
+      { abbr: "B.Ed", full: "Bachelor of Education" },
+      { abbr: "M.Ed", full: "Master of Education" },
+      { abbr: "BAMS", full: "Bachelor of Ayurvedic Medicine and Surgery" },
+      { abbr: "BHMS", full: "Bachelor of Homeopathic Medicine and Surgery" },
+      { abbr: "BDS", full: "Bachelor of Dental Surgery" },
+      { abbr: "MD", full: "Doctor of Medicine" },
+      { abbr: "MS", full: "Master of Surgery" },
+      { abbr: "B.Pharm", full: "Bachelor of Pharmacy" },
+      { abbr: "M.Pharm", full: "Master of Pharmacy" },
+      { abbr: "D.Pharm", full: "Doctor of Pharmacy" },
+      { abbr: "BCA", full: "Bachelor of Computer Applications" },
+      { abbr: "BCS", full: "Bachelor of Computer Science" },
+      { abbr: "MA", full: "Master of Arts" },
+      { abbr: "BCom", full: "Bachelor of Commerce" },
+      { abbr: "HSC", full: "12th Standard" },
+      { abbr: "SSC", full: "10th Standard" },
+    ]
+  }
+  

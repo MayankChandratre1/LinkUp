@@ -59,9 +59,9 @@ const SignUpForm = () => {
 
 
   return (
-    <SafeAreaView className='flex-1 p-4 bg-primary'>
+    <SafeAreaView className='flex-1 p-4 bg-bgcolor'>
       <ScrollView className="h-full">
-        <Text className="text-vibrant text-xl mb-4">Sign Up</Text>
+        <Text className="text-textcolorII text-xl mb-4">Sign Up</Text>
 
         <TextInput
           className="border border-neutral p-2 mb-4 rounded font-iregular"

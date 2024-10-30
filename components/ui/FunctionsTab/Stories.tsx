@@ -43,7 +43,7 @@ activeCat:string,
 onPress?:(event: GestureResponderEvent) => void
 }) => {
   return (
-    <CustomButton2 title='x' containerStyles={`bg-primary mx-2 w-18 h-18 p-[1px] py-2 border-b-vibrant rounded-none px-0 ${activeCat == item.displayName ? "border-b-4":""}`} onPress={onPress}>
+    <CustomButton2 title='x' containerStyles={`bg-bgcolor mx-2 w-18 h-18 p-[1px] py-2 border-b-vibrant rounded-none px-0 ${activeCat == item.displayName ? "border-b-4":""}`} onPress={onPress}>
       <Image source={{uri: item.photoURL}} className='w-12 h-12 rounded-full' loadingIndicatorSource={Logo}/>
       
       <Text className='text-xs font-isemibold'>{item.displayName}</Text>

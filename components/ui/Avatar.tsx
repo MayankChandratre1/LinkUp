@@ -14,7 +14,7 @@ const Avatar = ({profile_pic}:{
                 className='w-12 h-12 rounded-full'
               />
             ) : (
-              <View className='w-12 h-12 rounded-full bg-primary justify-center items-center'>
+              <View className='w-12 h-12 rounded-full bg-bgcolor justify-center items-center'>
                 <Text className='text-xl font-iregular text-secondary'>U</Text>
               </View>
             )}

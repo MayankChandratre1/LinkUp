@@ -71,7 +71,7 @@ const PickerList = ({data, setValue, onEndReached, setFilterParent, setShow}:{
 
   return (
     <View className=' w-full h-4/5 items-center z-20 px-3' style={centerStyle.container}>
-      <View className=' w-full bg-primary border rounded-md px-3 pb-5 pt-2 h-[500px]'>
+      <View className=' w-full bg-bgcolor border rounded-md px-3 pb-5 pt-2 h-[500px]'>
         <View className='items-end mb-3'>
           <TouchableOpacity className='p-2' onPress={()=>{
             setShow(false)
@@ -108,7 +108,7 @@ const PickerItem = ({label, setValue}:{
   setValue: (text:string) => void
 }) => {
     return (
-      <TouchableOpacity className='p-3 bg-primary mt-2 shadow-lg rounded-md' onPress={()=>{
+      <TouchableOpacity className='p-3 bg-bgcolor mt-2 shadow-lg rounded-md' onPress={()=>{
         setValue(label)
       }}>
         <Text className='font-iregular'>{label}</Text>

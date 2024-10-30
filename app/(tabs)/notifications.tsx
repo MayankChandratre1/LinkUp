@@ -4,11 +4,12 @@ import { SafeAreaView } from 'react-native-safe-area-context'
 import MyProfilePage from '@/components/ui/Profile/MyProfile/MyProfilePage'
 import { User } from '@/types/userTypes'
 import { calculatePercentage } from '@/lib/profileCompletion'
-import { acceptRequest, getCurrentUserInfo, getReceivedRequests, getSentRequests, rejectReq } from '@/firebase/services/rnFirebase/db'
+import { acceptRequest, getCurrentUserInfo, getReceivedRequests, getSentRequests, getUserById, rejectReq } from '@/firebase/services/rnFirebase/db'
 import { router, useFocusEffect } from 'expo-router'
 import { RequestType } from '@/types/requestTypes'
 import { TouchableOpacity } from 'react-native'
 import { useIsFocused } from '@react-navigation/native'
+import { sendPushNotification } from '@/lib/notifications'
 
 const notifications = () => {
 
@@ -62,6 +63,8 @@ const notifications = () => {
     const handleAccept = async (request: Partial<RequestType>) => {
         if(request.reqId){
             await acceptRequest(request.reqId)
+            const user = await getUserById(request.senderId || "");
+            await sendPushNotification(user?.expoPushToken?.data || "", "Request Accepted", `Your request to join ${request.funcName} has been accepted.`);
             console.log('Accepted request:', request);
            await fetchNoti()
         }
@@ -70,6 +73,8 @@ const notifications = () => {
       const handleReject = async (request: Partial<RequestType>) => {
         if(request.reqId){
             await rejectReq(request.reqId)
+            const user = await getUserById(request.senderId || "");
+            await sendPushNotification(user?.expoPushToken?.data || "", "Request Rejected", `Your request to join ${request.funcName} has been rejected.`);
             console.log('Rejected request:', request);
             await fetchNoti()
         }
@@ -88,13 +93,13 @@ const notifications = () => {
           onPress={() => setActiveTab('received')}
           className={`px-4 py-2 ${activeTab === 'received' ? 'bg-blue-500' : 'bg-gray-200'} rounded-full mx-2`}
         >
-          <Text className={`${activeTab === 'received' ? 'text-white' : 'text-black'} font-bold`}>Received</Text>
+          <Text className={`${activeTab === 'received' ? 'text-textcolorIII' : 'text-black'} font-bold`}>Received</Text>
         </TouchableOpacity>
         <TouchableOpacity
           onPress={() => setActiveTab('sent')}
           className={`px-4 py-2 ${activeTab === 'sent' ? 'bg-blue-500' : 'bg-gray-200'} rounded-full mx-2`}
         >
-          <Text className={`${activeTab === 'sent' ? 'text-white' : 'text-black'} font-bold`}>Sent</Text>
+          <Text className={`${activeTab === 'sent' ? 'text-textcolorIII' : 'text-black'} font-bold`}>Sent</Text>
         </TouchableOpacity>
       </View>
       
@@ -115,7 +120,7 @@ const notifications = () => {
                   onPress={() => handleAccept(req)}
                   className="bg-green-500 p-2 rounded-lg"
                 >
-                  <Text className="text-white font-bold">Accept</Text>
+                  <Text className="text-textcolorIII font-bold">Accept</Text>
                 </TouchableOpacity>
 
                 {/* Reject Button */}
@@ -123,7 +128,7 @@ const notifications = () => {
                   onPress={() => handleReject(req)}
                   className="bg-red-500 p-2 rounded-lg"
                 >
-                  <Text className="text-white font-bold">Reject</Text>
+                  <Text className="text-textcolorIII font-bold">Reject</Text>
                 </TouchableOpacity>
               </View>
             </View>

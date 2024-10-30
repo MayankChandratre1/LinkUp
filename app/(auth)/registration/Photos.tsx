@@ -1,87 +1,128 @@
-import { View, Text, Image } from "react-native";
+import { View, Text, Image, ScrollView, TouchableOpacity } from "react-native";
 import React, { useState } from "react";
 import * as ImagePicker from "expo-image-picker";
 import { uploadImage } from "@/firebase/services/rnFirebase/storage";
-import { ScrollView, TouchableOpacity } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { CustomButton2 } from "@/components/ui/CustomButton";
 import { updateUser } from "@/firebase/services/rnFirebase/db";
 import { router } from "expo-router";
+
 const Photos = () => {
-  const [image, setImage] = useState<string | null>(null);
+  const [images, setImages] = useState<string[]>([]);
   const [error, setError] = useState('');
+  const [loading, setLoading] = useState(false);
+
   const pickImage = async () => {
-    let result = await ImagePicker.launchImageLibraryAsync({
+    if (images.length >= 5) {
+      setError("Maximum of 5 photos allowed.");
+      return;
+    }
+
+    const result = await ImagePicker.launchImageLibraryAsync({
       mediaTypes: ImagePicker.MediaTypeOptions.Images,
       allowsEditing: true,
       quality: 1,
     });
 
-    if (!result.canceled) {
-      setImage(result.assets[0].uri);
+    if (!result.canceled && result.assets[0].uri) {
+      setImages([...images, result.assets[0].uri]);
+      setError(''); // Clear any existing errors
     }
   };
 
-  const uploadProfilePic = async () => {
-    if (image) {
-      const response = await fetch(image);
-      const blob = await response.blob();
-      const url = await uploadImage(blob);
-      return url;
-    } else {
-      console.error("No image selected");
+  const uploadProfilePics = async () => {
+    try {
+      const urls = await Promise.all(
+        images.map(async (image) => {
+          const response = await fetch(image);
+          const blob = await response.blob();
+          return await uploadImage(blob);
+        })
+      );
+      return urls;
+    } catch (err) {
+      console.error("Error uploading images:", err);
+      setError("Failed to upload images. Please try again.");
+      return null;
     }
   };
 
   const handleNext = async () => {
-    const url = await uploadProfilePic();
-    if(url){
-        const success = await updateUser({user:{profile_pic:url}})
-        if(success)
-            router.push("/(auth)/registration/dobAndHeight")
-        else 
-            setError("Error while setting image, Try again!")
-    }else{
-        setError("Can't upload this image try another")
+    setLoading(true);
+    const urls = await uploadProfilePics();
+    if (urls) {
+      const success = await updateUser({ user: { photos: urls } });
+      if (success) {
+        router.push("/(auth)/registration/Gender");
+      } else {
+        setError("Error while setting images, please try again.");
+      }
     }
-  }
+    setLoading(false);
+  };
+
+  const removeImage = (uri: string) => {
+    setImages(images.filter((image) => image !== uri));
+  };
+
   return (
-    <SafeAreaView className="flex-1 p-4 bg-primary">
+    <SafeAreaView className="flex-1 bg-bgcolor px-7 justify-center">
       <ScrollView
         className="flex-1"
-        contentContainerStyle={{
-          height: "100%",
-        }}
+        contentContainerStyle={{ height: "100%" }}
       >
-        <View className="h-full justify-center">
-        <Text className="text-vibrant text-xl font-ibold mb-4">Let people see how you look</Text>
-        <Text className="text-vibrant text-md mb-4">Upload A profile picture with your face</Text>
-        {error && <Text className='text-red-500'>{error}</Text>}
+        <View className="h-full justify-center items-center">
+          <Text className="text-textcolorII text-3xl font-ibold mb-4 text-center">
+            Let people see how you look
+          </Text>
+          <Text className="text-textcolorII text-lg font-iregular mb-6 text-center">
+            Upload up to 5 profile pictures
+          </Text>
+
+          {error && <Text className="text-red-500 mb-2">{error}</Text>}
+
           <TouchableOpacity
             onPress={pickImage}
-            className="mb-4 bg-primary border-2 w-10 h-10 justify-center items-center rounded-lg"
+            className="mb-6 bg-accent border-2 w-16 h-16 justify-center items-center rounded-full"
           >
-            <Text className="">+</Text>
+            <Text className="text-3xl text-black flex justify-center items-center font-mono">
+              +
+            </Text>
           </TouchableOpacity>
-          {image && (
-            <Image
-              source={{ uri: image }}
-              style={{
-                width: 100,
-                height: 100,
-                borderRadius: 50,
-                marginBottom: 10,
-              }}
-            />
-          )}
-          <CustomButton2 title="upload" containerStyles='p-3 rounded-md m-2' onPress={handleNext}>
-            <Text>Upload</Text>
+
+          <View style={{ flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'center' }}>
+            {images.map((uri, index) => (
+              <View key={index} style={{ position: 'relative', margin: 5 }}>
+                <Image
+                  source={{ uri }}
+                  style={{ width: 80, height: 80, borderRadius: 10 }}
+                />
+                <TouchableOpacity
+                  onPress={() => removeImage(uri)}
+                  style={{
+                    position: 'absolute',
+                    top: -10,
+                    right: -10,
+                    borderRadius: 15,
+                    padding: 5,
+                  }}
+                  className="bg-accentII"
+                >
+                  <Text className="text-center font-iregular w-5 h-5" >X</Text>
+                </TouchableOpacity>
+              </View>
+            ))}
+          </View>
+
+          <CustomButton2
+            title="Upload"
+            containerStyles="p-4 rounded-lg bg-primary mb-4 w-full"
+            onPress={handleNext}
+          >
+            <Text className="text-md font-isemibold text-center text-textcolorIII">
+              {loading ? "Uploading..." : "Upload"}
+            </Text>
           </CustomButton2>
-          <CustomButton2 title='Create New Account' containerStyles='p-3 rounded-md m-2' onPress={()=>{
-          router.push("/(auth)/registration/dobAndHeight")
-        }}>
-          <Text className=''>SKip</Text>
-        </CustomButton2>
         </View>
       </ScrollView>
     </SafeAreaView>

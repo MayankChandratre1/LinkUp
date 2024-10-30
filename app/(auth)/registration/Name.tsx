@@ -19,7 +19,7 @@ const NameForm = () => {
     if(name){
       const success = await updateUser({ user: {name:name.trim()} })
       if(success)
-        router.push("/(auth)/registration/Photos")
+        router.push("/(auth)/registration/dobAndHeight")
       else
         setError("Error in setting name try again!")
     }
@@ -27,36 +27,41 @@ const NameForm = () => {
 
 
   return (
-    <SafeAreaView className='flex-1 p-4 bg-primary'>
-      <ScrollView className="flex-1" contentContainerStyle={{
-        height:'100%',
-      }}>
-      
-        <View className="h-full justify-center ">
-        <Text className="text-vibrant text-md mb-4">Let's start simple...</Text>
-        <Text className="text-vibrant text-xl font-ibold mb-4">What is your name?</Text>
-        {error && <Text className='text-red-500'>{error}</Text>}
-
+    <SafeAreaView className='flex-1 bg-bgcolor px-7 justify-center'>
+    <ScrollView className="flex-1" contentContainerStyle={{ height: '100%' }}>
+      <View className="h-full justify-center">
+        <Text className="text-textcolorII text-lg mb-2 font-iregular">Let's start simple...</Text>
+        <Text className="text-textcolorII text-3xl font-ibold mb-6">What’s your name?</Text>
+        
+        {error && <Text className='text-red-500 mb-2'>{error}</Text>}
+  
         <TextInput
-          className="border border-neutral p-2 mb-4 rounded"
-          placeholder="Name"
+          className="border border-accentI p-4 mb-6 rounded-lg bg-white text-lg font-iregular"
+          placeholder="eg. John Doe"
           value={name}
           onChangeText={handleChange}
-          autoCapitalize="none"
+          autoCapitalize="words"
         />
-      
-        <CustomButton2 title='Create New Account' containerStyles='p-3 rounded-md m-2' onPress={handleNext}>
-          <Text className=''>Next</Text>
+  
+        <CustomButton2
+          title='Create New Account'
+          containerStyles='p-4 rounded-lg bg-primary mb-4'
+          onPress={handleNext}
+        >
+          <Text className='text-md font-semibold text-center text-textcolorIII'>Next</Text>
         </CustomButton2>
-        <CustomButton2 title='Create New Account' containerStyles='p-3 rounded-md m-2' onPress={()=>{
-          router.push("/(auth)/registration/Photos")
-        }}>
-          <Text className=''>SKip</Text>
-        </CustomButton2>
-        </View>
-        
-      </ScrollView>
-    </SafeAreaView>
+  
+        {/* <CustomButton2
+          title='Skip'
+          containerStyles='p-4 rounded-lg bg-secondary mb-4'
+          onPress={() => router.push("/(auth)/registration/Photos")}
+        >
+          <Text className='text-md font-semibold text-center text-primary'>Skip</Text>
+        </CustomButton2> */}
+      </View>
+    </ScrollView>
+  </SafeAreaView>
+  
   );
 };
 

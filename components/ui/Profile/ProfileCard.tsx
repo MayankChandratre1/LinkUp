@@ -30,7 +30,7 @@ const ProfileCard = ({profile, redirectMode}:{
         {profile.profile_pic ? 
         <Image source={{
           uri:profile.profile_pic || "No Uri"
-      }} className='w-12 h-12 rounded-full' />:<View className='w-12 h-12 rounded-full bg-primary justify-center items-center'>
+      }} className='w-12 h-12 rounded-full' />:<View className='w-12 h-12 rounded-full bg-bgcolor justify-center items-center'>
         <Text className='text-xl font-iregular text-secondary'>U</Text></View>}
       </View>
       <View className='flex-1'>

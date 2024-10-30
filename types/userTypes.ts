@@ -1,13 +1,17 @@
+import { ExpoPushToken } from "expo-notifications"
+
 export type User = {
     id:string,
     name:string,
     phone:string,
     email:string,
     profile_pic:string,
+    photos: any[],
     isProfilePicVerified:boolean,
     isEmailVerified:boolean,
     isNewProfile:boolean
     personalInfo:{
+        gender?:string,
         age?: string,
         dateOfBirth?:Date,
         relegion?:string,
@@ -30,5 +34,6 @@ export type User = {
         instagram?:string,
         linkedin?:string,
         xcom?:string,
-    }
+    },
+    expoPushToken?:ExpoPushToken | null,
 }

@@ -18,6 +18,7 @@ import { getReceivedRequests, getSentRequests } from '@/firebase/services/rnFire
 const MyProfile = ({user}:{
     user:Partial<User> | null
 }) => {
+    
     const [percent, setPercent] = useState(0)
     const [showSocialsModal, setShowSocialsModal] = useState(false)
     const [notifications, setNotifications] = useState<{
@@ -82,7 +83,7 @@ const MyProfile = ({user}:{
                 <View className='flex-row '>
                 <CustomButton2 title='signout' containerStyles='mx-2 p-2' onPress={async () => {
                     await signOut();
-                    router.replace("/")
+                    router.replace("/(auth)/signup")
                 }}>
                     <Text className='text-red-500 font-isemibold'>Sign out</Text>
                 </CustomButton2>
@@ -129,7 +130,7 @@ const MyProfile = ({user}:{
                 <Entypo name="dots-three-horizontal" size={20} color="white" />
             </CustomButton2>
             <CustomButton2 title='settings' containerStyles='flex-1 flex-row bg-vibrant  ml-3'>
-                <AntDesign name="wechat" size={20} color="white" /><Text className='text-md font-isemibold text-white'>{"  "}Start Chat</Text>
+                <AntDesign name="wechat" size={20} color="white" /><Text className='text-md font-isemibold text-textcolorIII'>{"  "}Start Chat</Text>
             </CustomButton2>
         </View>
     </View>
@@ -197,19 +198,19 @@ const Card = ({user, setShow}:{
             <View className='gap-2 mt-3'>
              <View className='flex-row gap-2 px-2'>
                  <AntDesign name='profile' size={16} color={"gray"} />
-                 <Text className='text-vibrant/70 text-xs w-4/5'>{user?.personalInfo?.height}</Text>
+                 <Text className='text-textcolorII/70 text-xs w-4/5'>{user?.personalInfo?.height}</Text>
              </View>
              <View className='flex-row gap-2 px-2'>
                  <Ionicons name='pizza' size={16} color={"gray"} />
-                 <Text className='text-vibrant/70 text-xs w-4/5'>Loves Photography and Travel</Text>
+                 <Text className='text-textcolorII/70 text-xs w-4/5'>Loves Photography and Travel</Text>
              </View>
              <View className='flex-row gap-2 px-2'>
                  <Ionicons name='airplane' size={16} color={"gray"} />
-                 <Text className='text-vibrant/70 text-xs w-4/5'>Beaches, Mountains, Cafe and Movies</Text>
+                 <Text className='text-textcolorII/70 text-xs w-4/5'>Beaches, Mountains, Cafe and Movies</Text>
              </View>
              <View className='flex-row gap-2 px-2'>
                  <AntDesign name='clockcircleo' size={16} color={"gray"} />
-                 <Text className='text-vibrant/70 text-xs w-4/5'>last seen: 23hrs</Text>
+                 <Text className='text-textcolorII/70 text-xs w-4/5'>last seen: 23hrs</Text>
              </View>
             </View>
          </View>

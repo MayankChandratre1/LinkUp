@@ -34,7 +34,7 @@ const FunctionInfo = ({curr_func}:{
         }
         <View className='py-2 pt-5 w-1/2'>
             <View className=''>
-                <Text className='font-isemibold text-vibrant text-2xl'>{curr_func?.title}</Text>
+                <Text className='font-isemibold text-textcolorII text-2xl'>{curr_func?.title}</Text>
                 <Text className='font-iregular'>{curr_func?.location?.city}</Text>
             </View>
             <View>

@@ -4,9 +4,10 @@ import * as Location from 'expo-location';
 import { CustomButton2 } from '@/components/ui/CustomButton';
 import { router } from 'expo-router';
 import { updateUser } from '@/firebase/services/rnFirebase/db';
+import CityPicker from '@/components/ui/Registration/CityPicker';
 
 
-const Addresses = () => {
+const City = () => {
   const [location, setLocation] = useState<Location.LocationObject | null>(null);
   const [errorMsg, setErrorMsg] = useState<string|null>(null);
   const [address, setAddress] = useState<string|null>(null);
@@ -63,7 +64,7 @@ const Addresses = () => {
         }
       } })
       if(success)
-        router.push("/(auth)/registration/Interests")
+        router.push("/(auth)/registration/Job")
       else
         setError("Error in setting address try again!")
     }
@@ -82,33 +83,8 @@ const Addresses = () => {
       <Text className="text-textcolorII text-3xl font-ibold mb-4 text-center">
         Where do you live?
       </Text>
-
       {error && <Text className="text-red-500 mb-4">{error}</Text>}
-
-
-      {loading ? (
-        <ActivityIndicator size="large" color="#cfcfcf" />
-      ) : (
-        address && (
-          <Text className="mb-6 font-isemibold text-center text-textcolorII">
-            {address}
-          </Text>
-        )
-      )}
-      <CustomButton2
-        title="address"
-        containerStyles="bg-vibrant items-center mb-6 w-full"
-        onPress={() => {
-          getAddress();
-        }}
-      >
-        <Text className="p-4 font-iregular text-primary text-center">
-          Use Current Location
-        </Text>
-      </CustomButton2>
-
-      
-
+      <CityPicker setValue={setAddress}/>
       <CustomButton2
         title="Next"
         containerStyles="p-4 rounded-lg bg-primary mb-4 w-full"
@@ -123,7 +99,7 @@ const Addresses = () => {
         title="Skip"
         containerStyles="p-4 rounded-lg bg-accentII mb-4 w-full"
         onPress={() => {
-          router.push("/(tabs)/profiles");
+          router.push("/(auth)/registration/Job");
         }}
       >
         <Text className="text-md font-semibold text-center text-textcolorIII">
@@ -137,4 +113,4 @@ const Addresses = () => {
   );
 }
 
-export default Addresses
+export default City

@@ -43,27 +43,27 @@ const InterestsSelection = () => {
       <ScrollView contentContainerStyle={{ height: '100%' }}>
         <View className="h-full justify-center">
           <Text className="text-textcolorII text-xl font-ibold mb-4">Select Interests/Hobbies</Text>
-          {error && <Text className="text-red-500 mb-2">{error}</Text>}
+          {error && <Text className="font-iregular text-red-500 mb-2">{error}</Text>}
           <View className="flex-row flex-wrap gap-3">
             {interests.map((interest) => (
               <TouchableOpacity
                 key={interest}
-                className={`p-3 mb-2 rounded-md ${selectedInterests.includes(interest) ? 'bg-accentI' : 'border'}`}
+                className={`p-3 mb-2 rounded-md  ${selectedInterests.includes(interest) ? 'bg-accentI' : 'border'}`}
                 onPress={() => toggleInterest(interest)}
               >
-                <Text className={`text-center ${selectedInterests.includes(interest) ? 'text-textcolorIII font-semibold' : 'text-textcolorII'}`}>
+                <Text className={`text-center font-iregular ${selectedInterests.includes(interest) ? 'text-textcolorIII font-semibold' : 'text-textcolorII'}`}>
                   {interest}
                 </Text>
               </TouchableOpacity>
             ))}
           </View>
           <TouchableOpacity className="p-3 bg-primary rounded-md mt-4" onPress={handleNext}>
-            <Text className="text-center text-textcolorIII">Next</Text>
+            <Text className="text-center font-isemibold text-textcolorIII">Next</Text>
           </TouchableOpacity>
           <TouchableOpacity className="p-3 bg-accentII rounded-md mt-4" onPress={()=>{
             router.push("/(auth)/registration/Photos");
           }}>
-            <Text className="text-center text-textcolorIII">Skip</Text>
+            <Text className="text-center font-isemibold text-textcolorIII">Skip</Text>
           </TouchableOpacity>
         </View>
       </ScrollView>

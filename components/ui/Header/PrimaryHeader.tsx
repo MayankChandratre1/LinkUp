@@ -18,13 +18,13 @@ const PrimaryHeader = () => {
              />
         </View>
         <View>
-            <CustomButton2 title='hi' containerStyles='p-1' onPress={()=>{
+            {/* <CustomButton2 title='hi' containerStyles='p-1' onPress={()=>{
               signOut().then(()=>{
                 router.push("/(auth)/getstarted")
               })
             }}>
             <Ionicons name="menu" size={32} color="#7743DB" />
-            </CustomButton2>
+            </CustomButton2> */}
         </View>
     </SafeAreaView>
   )

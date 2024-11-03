@@ -4,27 +4,26 @@ import { CustomButton2 } from '../CustomButton'
 import { AntDesign, MaterialIcons } from '@expo/vector-icons'
 import { router } from 'expo-router'
 
-const ProfileHeader = ({name, isVerified}:{
+const ProfileHeader = ({name, isVerified, userId}:{
     name:string,
-    isVerified:boolean
+    isVerified:boolean,
+    userId: string
 }) => {
   return (
     <View className='p-3 flex-row justify-between items-center'>
       <Text className='font-ibold text-lg flex-1'>{name}</Text>
+      
       <View className='flex-row px-3'>
         {!isVerified ? <>
-            <CustomButton2 title='Get Verified' containerStyles='flex-row p-3 items-center justify-center mx-3'
+            <CustomButton2 title='Get Verified' containerStyles='flex-row p-2 items-center justify-center ml-3 bg-textcolorIII/80'
             onPress={()=>{
-                router.push("/(verification)/userprofile/1")
+                router.push(`/(verification)/userprofile/${userId}`)
             }}
         >
              <MaterialIcons name="verified" size={20} color="#14a3c7" />
-             <Text>Get Verified</Text>
+             <Text className='text-textcolorII font-isemibold'>Get Verified</Text>
         </CustomButton2>
         </>:null}
-        <CustomButton2 title='setting' containerStyles='w-10 h-10'>
-            <AntDesign name='setting' size={24}  />
-        </CustomButton2>
       </View>
     </View>
   )

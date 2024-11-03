@@ -13,7 +13,10 @@ export type User = {
     personalInfo:{
         gender?:string,
         age?: string,
-        dateOfBirth?:Date,
+        dateOfBirth?:{
+            nanoseconds:number,
+            seconds:number
+        },
         relegion?:string,
         home_address?:string,
         current_address?:string,

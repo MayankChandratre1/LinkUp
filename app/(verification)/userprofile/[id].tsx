@@ -11,7 +11,7 @@ const UserProfile = () => {
   const user = demo_profiles.filter(user => user.id === id)
   return (
     <SafeAreaView className='flex-1'>
-      <CameraVerification userProfile={user[0].profile_pic} />
+      <CameraVerification userProfile={""} />
     </SafeAreaView>
   )
 }

@@ -32,6 +32,10 @@ const Photos = () => {
 
   const uploadProfilePics = async () => {
     try {
+      if(images.length === 0){
+        setError("Please upload at least one image.");
+        return null;
+      }
       const urls = await Promise.all(
         images.map(async (image) => {
           const response = await fetch(image);
@@ -51,9 +55,9 @@ const Photos = () => {
     setLoading(true);
     const urls = await uploadProfilePics();
     if (urls) {
-      const success = await updateUser({ user: { photos: urls } });
+      const success = await updateUser({ user: { photos: urls, isNewProfile:false } });
       if (success) {
-        router.push("/(auth)/registration/Gender");
+        router.push("/(tabs)/profiles");
       } else {
         setError("Error while setting images, please try again.");
       }

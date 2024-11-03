@@ -28,7 +28,7 @@ const CityPicker = ({ setValue }: { setValue: (text: string) => void }) => {
         onPress={() => setModalVisible(true)}
         className="border border-gray-300 p-3 rounded bg-white"
       >
-        <Text className="text-gray-700">
+        <Text className="text-gray-700 font-isemibold">
           {selectedValue ? selectedValue : "Select City"}
         </Text>
       </TouchableOpacity>

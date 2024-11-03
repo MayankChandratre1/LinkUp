@@ -35,6 +35,8 @@ const SignInForm = () => {
   },[])
 
   const handleSignIn = async () => {
+    console.log("handleSignIn");
+    
     setLoading(true)
     setError("");
     if (password !== confirmPassword) {
@@ -49,7 +51,9 @@ const SignInForm = () => {
     }
     try{
       if (phone && countryCode) {
+        
         const vid = await sendOtp(`${countryCode}${phone}`);
+        console.log("sendOtp to phone: "+countryCode+phone);
         if (vid) {
           setVerificationId(vid);
         }

@@ -71,10 +71,11 @@ const CollegePicker = ({ setValue }: { setValue: (text: string) => void }) => {
     const { college, city } = toAddCollege;
     if(college && city){
       
-      await addCollege({college, city});
+      await addCollege({college: college.toUpperCase(), city: city.toUpperCase()});
       setSelectedValue(college);
       setLoading(false);
       setAddCollegeActive(!addCollegeActive);
+      setModalVisible(false);
     }
   }
   return (
@@ -143,14 +144,14 @@ const CollegePicker = ({ setValue }: { setValue: (text: string) => void }) => {
                     placeholder="Enter college name"
                     autoCapitalize="none"
                     value={toAddCollege.college}
-                    onChangeText={(text)=>setToAddCollege({...toAddCollege, college: text.toUpperCase()})}
+                    onChangeText={(text)=>setToAddCollege({...toAddCollege, college: text})}
                     />
                   <TextInput
                     className="border border-neutral p-3 rounded text-md font-iregular mt-2"
                     placeholder="Enter college city"
                     autoCapitalize="none"
                     value={toAddCollege.city}
-                    onChangeText={(text)=>setToAddCollege({...toAddCollege, city: text.toUpperCase()})}
+                    onChangeText={(text)=>setToAddCollege({...toAddCollege, city: text})}
                     />
                   </View>
                 }

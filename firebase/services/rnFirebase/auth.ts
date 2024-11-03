@@ -2,9 +2,12 @@ import auth, { FirebaseAuthTypes } from '@react-native-firebase/auth';
 import { addUser, updateUser } from './db';
 import { scheduleNotificationAsync } from 'expo-notifications';
 import { schedulePushNotification } from '@/lib/notifications';
+import { GoogleSignin } from '@react-native-google-signin/google-signin';
 
 
 export const sendOtp = async (phone:string) => {
+    console.log("PHONE:"+phone);
+    
     try{
         const vid = await auth().signInWithPhoneNumber(phone);
         console.log("VID:"+vid);
@@ -54,6 +57,9 @@ export const signUpEmail = async (email:string, password:string) => {
         return null
     }
 }
+
+
+
 
 export const signOut = async () => {
     try{

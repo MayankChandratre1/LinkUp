@@ -91,7 +91,7 @@ const HeightForm = () => {
           <View className="flex-row items-center justify-center gap-2 mb-6">
             <View className="border flex-1 border-accentI rounded text-center h-14 flex-row items-center px-2">
               <TextInput
-              className="flex-1 border-neutral p-3 rounded text-center"
+              className="flex-1 font-iregular border-neutral p-3 rounded text-center"
               placeholder=""
               value={foot.toString()}
               onChangeText={setFoot}
@@ -102,7 +102,7 @@ const HeightForm = () => {
             </View>
             <View className="border flex-1 border-accentI rounded text-center h-14 flex-row items-center px-2">
               <TextInput
-              className="flex-1 border-neutral p-3 rounded text-center"
+              className="flex-1 border-neutral font-iregular p-3 rounded text-center"
               placeholder=""
               value={inch.toString()}
               onChangeText={setInch}
@@ -115,7 +115,7 @@ const HeightForm = () => {
           </View>
         ) : (
           <View className="items-center">
-           <View className="border border-accentI rounded w-1/2 text-center flex-row items-center px-2">
+           <View className="border border-accentI font-iregular rounded w-1/2 text-center flex-row items-center px-2">
            <TextInput
               className="p-3 rounded text-center flex-1"
               placeholder=""
@@ -135,7 +135,7 @@ const HeightForm = () => {
         containerStyles="p-4 rounded-lg bg-primary mb-4 w-full"
         onPress={handleNext}
       >
-        <Text className="text-md font-semibold text-center text-textcolorIII">
+        <Text className="text-md font-isemibold text-center text-textcolorIII">
           Next
         </Text>
       </CustomButton2>

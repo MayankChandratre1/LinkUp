@@ -43,16 +43,16 @@ const GenderSelection = () => {
       {genders.map((gender) => (
         <TouchableOpacity
           key={gender}
-          className={`p-3 mb-2 rounded-md ${selectedGender === gender ? 'bg-accentI/90' : 'border border-accentI'}`}
+          className={`p-3 font-iregular mb-2 rounded-md ${selectedGender === gender ? 'bg-accentI/90' : 'border border-accentI'}`}
           onPress={() => handleGenderSelect(gender)}
         >
-          <Text className={`text-center ${selectedGender === gender ? 'text-textcolorIII font-semibold' : 'text-textcolorI'}`}>
+          <Text className={`text-center font-iregular ${selectedGender === gender ? 'text-textcolorIII font-semibold' : 'text-textcolorI'}`}>
             {gender}
           </Text>
         </TouchableOpacity>
       ))}
       <CustomButton2 title="Next" containerStyles="p-3 rounded-md bg-primary mt-4" onPress={handleNext}>
-        <Text className="text-center text-textcolorIII">Next</Text>
+        <Text className="text-center font-isemibold text-textcolorIII">Next</Text>
       </CustomButton2>
     </View>
   </ScrollView>

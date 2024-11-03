@@ -166,7 +166,10 @@ const DobAndHeightForm = () => {
       const success = await updateUser({ user: {
         personalInfo:{
           age:age.toString(),
-          dateOfBirth:date
+          dateOfBirth:{
+            nanoseconds:0,
+            seconds:date.getTime()/1000
+          }
         }
       } });
       if (success) router.push("/(auth)/registration/Gender")
@@ -184,14 +187,14 @@ const DobAndHeightForm = () => {
   >
     <View className="h-full justify-center items-center">
      
-      {error && <Text className="text-red-500 mb-2 text-center">{error}</Text>}
+      {error && <Text className="text-red-500 font-iregular mb-2 text-center">{error}</Text>}
       
       <View className="my-5 w-full">
         <Text className="text-textcolorII text-3xl font-ibold mb-4 text-center">
           How old are you?
         </Text>
         
-        <Text className="text-center text-textcolorI mb-4">
+        <Text className="text-center font-iregular text-textcolorI mb-4">
           You are{" "}
           <Text className="font-isemibold text-textcolorII/70">
             {calculateAge(date)} years old!
@@ -215,12 +218,12 @@ const DobAndHeightForm = () => {
           containerStyles="p-4 rounded-lg bg-primary mb-4 w-full"
           onPress={handleNext}
         >
-          <Text className="text-md font-semibold text-center text-textcolorIII">
+          <Text className="text-md font-isemibold font-semibold text-center text-textcolorIII">
             Next
           </Text>
         </CustomButton2>
       ) : (
-        <Text className="text-center text-red-400 mb-4">
+        <Text className="text-center font-iregular text-red-400 mb-4">
           You must be at least 18 years old to use this app
         </Text>
       )}

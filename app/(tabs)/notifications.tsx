@@ -81,25 +81,25 @@ const notifications = () => {
       };
   
   return (
-    <SafeAreaView className="flex-1 bg-white p-4">
+    <SafeAreaView className="flex-1 bg-bgcolor p-4">
        
              <TouchableOpacity className=" " onPress={() => router.back()}>
-                 <Text className="text-lg">{'< Back'}</Text>
+                 <Text className="text-lg font-ibold">&larr;</Text>
              </TouchableOpacity>
              <Text className="text-xl text-center mb-4 font-isemibold">Join Requests</Text>
 
              <View className="flex-row justify-center mb-4">
         <TouchableOpacity
           onPress={() => setActiveTab('received')}
-          className={`px-4 py-2 ${activeTab === 'received' ? 'bg-blue-500' : 'bg-gray-200'} rounded-full mx-2`}
+          className={`px-4 py-2 ${activeTab === 'received' ? 'bg-primary' : 'bg-gray-200'} rounded-full mx-2`}
         >
-          <Text className={`${activeTab === 'received' ? 'text-textcolorIII' : 'text-black'} font-bold`}>Received</Text>
+          <Text className={`${activeTab === 'received' ? 'text-textcolorIII' : 'text-black'} font-ibold`}>Received</Text>
         </TouchableOpacity>
         <TouchableOpacity
           onPress={() => setActiveTab('sent')}
-          className={`px-4 py-2 ${activeTab === 'sent' ? 'bg-blue-500' : 'bg-gray-200'} rounded-full mx-2`}
+          className={`px-4 py-2 ${activeTab === 'sent' ? 'bg-primary' : 'bg-gray-200'} rounded-full mx-2`}
         >
-          <Text className={`${activeTab === 'sent' ? 'text-textcolorIII' : 'text-black'} font-bold`}>Sent</Text>
+          <Text className={`${activeTab === 'sent' ? 'text-textcolorIII' : 'text-black'} font-ibold`}>Sent</Text>
         </TouchableOpacity>
       </View>
       
@@ -107,11 +107,11 @@ const notifications = () => {
       <ScrollView>
       {activeTab === 'received' && notifications.receivedReq && notifications.receivedReq.length > 0 ? (
           notifications.receivedReq.map((req, index) => (
-            <View key={index} className="p-4 bg-gray-100 rounded-lg mb-4 flex flex-col">
+            <View key={index} className="p-4 bg-accentII/50 rounded-lg mb-4 flex flex-col">
               <Text className="mb-2 text-md font-iregular">
                 {req.userName} has requested to join you in {req.funcName}
               </Text>
-              <Text className="mb-2 text-sm text-gray-500">
+              <Text className="mb-2 text-sm text-gray-500 font-iregular">
                 {req?.message || 'No message'} 
               </Text>
               <View className="flex-row gap-2">
@@ -120,7 +120,7 @@ const notifications = () => {
                   onPress={() => handleAccept(req)}
                   className="bg-green-500 p-2 rounded-lg"
                 >
-                  <Text className="text-textcolorIII font-bold">Accept</Text>
+                  <Text className="text-textcolorIII font-isemibold">Accept</Text>
                 </TouchableOpacity>
 
                 {/* Reject Button */}
@@ -128,25 +128,29 @@ const notifications = () => {
                   onPress={() => handleReject(req)}
                   className="bg-red-500 p-2 rounded-lg"
                 >
-                  <Text className="text-textcolorIII font-bold">Reject</Text>
+                  <Text className="text-textcolorIII font-isemibold">Reject</Text>
                 </TouchableOpacity>
               </View>
             </View>
           ))
         ) : activeTab === 'received' ? (
-          <Text className="text-center text-gray-500">No received requests found.</Text>
+          <Text className="text-center text-gray-500 font-iregular">No received requests found.</Text>
         ) : null}
 
     {activeTab === 'sent' && notifications.sentReq.length > 0 ? (
           notifications.sentReq.map((req, index) => (
-            <View key={index} className="p-4 bg-gray-100 rounded-lg mb-4 flex flex-col">
-              <Text className="text-lg mb-2">
-                You have requested to join {req.funcName} 
+            <View key={index} className="p-4 bg-accentII/50 rounded-lg mb-4 flex flex-col">
+              <Text className="text-lg mb-2 font-iregular">
+                You have requested to join {req.funcName}
               </Text>
+              {req && req.createdAt &&
+              <Text className="text-sm mb-2 font-iregular">
+                 {new Date(req?.createdAt?.seconds * 1000).toDateString()}
+              </Text>}
             </View>
           ))
         ) : activeTab === 'sent' ? (
-          <Text className="text-center text-gray-500">No sent requests found.</Text>
+          <Text className="text-center text-gray-500 font-iregular">No sent requests found.</Text>
         ) : null}
       </ScrollView>
     </SafeAreaView>

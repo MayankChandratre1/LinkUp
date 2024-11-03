@@ -125,7 +125,7 @@ const EducationAndJob = () => {
           containerStyles="p-4 rounded-lg bg-primary mb-4 w-full"
           onPress={handleNext}
         >
-          <Text className="text-md font-semibold text-center text-textcolorIII">
+          <Text className="text-md font-isemibold text-center text-textcolorIII">
             Next
           </Text>
         </CustomButton2>
@@ -135,7 +135,7 @@ const EducationAndJob = () => {
           containerStyles="p-4 rounded-lg bg-accentII mb-4 w-full"
           onPress={() => router.push("/(auth)/registration/City")}
         >
-          <Text className="text-md font-semibold text-center text-textcolorIII">
+          <Text className="text-md font-isemibold text-center text-textcolorIII">
             Skip
           </Text>
         </CustomButton2>

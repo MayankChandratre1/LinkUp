@@ -5,7 +5,10 @@ export type RequestType = {
     userName: string,
     funcName: string,
     funcId: string,
-    createdAt: Date,
+    createdAt: {
+        seconds: number,
+        nanoseconds: number
+    },
     message: string,
     status: "pending" | "accepted" | "rejected"
 }

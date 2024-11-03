@@ -83,14 +83,14 @@ const City = () => {
       <Text className="text-textcolorII text-3xl font-ibold mb-4 text-center">
         Where do you live?
       </Text>
-      {error && <Text className="text-red-500 mb-4">{error}</Text>}
+      {error && <Text className="text-red-500 font-iregular mb-4">{error}</Text>}
       <CityPicker setValue={setAddress}/>
       <CustomButton2
         title="Next"
         containerStyles="p-4 rounded-lg bg-primary mb-4 w-full"
         onPress={handleNext}
       >
-        <Text className="text-md font-semibold text-center text-textcolorIII">
+        <Text className="text-md font-isemibold text-center text-textcolorIII">
           Next
         </Text>
       </CustomButton2>
@@ -102,7 +102,7 @@ const City = () => {
           router.push("/(auth)/registration/Job");
         }}
       >
-        <Text className="text-md font-semibold text-center text-textcolorIII">
+        <Text className="text-md font-isemibold text-center text-textcolorIII">
           Skip
         </Text>
       </CustomButton2>

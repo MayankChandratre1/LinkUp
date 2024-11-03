@@ -57,10 +57,10 @@ const TabLayout = () => {
               <TabIcon icon={Profile} color={color} focused={focused} name="Me"  />
             )
         }} />
-        {/* <Tabs.Screen name='newmyprofile' options={{
+        <Tabs.Screen name='newmyprofile' options={{
             headerShown:false,
-            tabBarButton: () => null
-        }} /> */}
+            // tabBarButton: () => null
+        }} />
         <Tabs.Screen name='userprofile' options={{
             headerShown:false,
             tabBarButton: () => null

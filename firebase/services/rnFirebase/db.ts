@@ -26,6 +26,8 @@ export const updateUser = async ({user}:{
     try{
         const currUser =  auth().currentUser
     const uid = currUser?.uid
+    console.log("UPDATIN USER\n"+JSON.stringify(uid));
+    
 
     if(user.personalInfo || user.professionalInfo){
      

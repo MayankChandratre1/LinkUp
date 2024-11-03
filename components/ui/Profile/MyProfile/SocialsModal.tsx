@@ -156,7 +156,10 @@ const SocialModal2 = ({socials, setShow}:{
  
   
   return ( 
-    <View className='bg-bgcolor rounded-md shadow-lg py-5 w-[90%] h-[300px] justify-center items-center px-3 z-50 absolute'>
+    <View className='bg-bgcolor rounded-md shadow-lg py-5 w-[90%] h-[300px] justify-center items-center px-3 z-50 absolute' style={{
+        top: '20%',
+        left: '5%',
+    }}>
         <View className=' w-full flex-row justify-between items-center mb-3'>
         <Text className='text-xl font-isemibold text-textcolorII'>Socials</Text>
           <TouchableOpacity className='p-2' onPress={()=>{
@@ -166,21 +169,21 @@ const SocialModal2 = ({socials, setShow}:{
         </TouchableOpacity>
         </View>
         <View className='flex-row w-full justify-center my-3 py-3'>
-            <CustomButton2 title={"social"} containerStyles={`flex-1 mx-1 py-3 shadow-lg border ${selected == 'instagram' ? 'bg-vibrant':'bg-neutral'}`}
+            <CustomButton2 title={"social"} containerStyles={`flex-1 mx-1 py-3 shadow-lg border ${selected == 'instagram' ? 'bg-primary':'bg-accentII'}`}
             onPress={()=>{
                 setSelected('instagram')
             }}
             >
                 <AntDesign name="instagram" size={18} color={`${selected == 'instagram' ? 'white':'black'}`} />
             </CustomButton2>
-            <CustomButton2 title={"social"} containerStyles={`flex-1 mx-1 py-3 shadow-lg border ${selected == 'linkedin' ? 'bg-vibrant':'bg-neutral'}`}
+            <CustomButton2 title={"social"} containerStyles={`flex-1 mx-1 py-3 shadow-lg border ${selected == 'linkedin' ? 'bg-primary':'bg-accentII'}`}
             onPress={()=>{
                 setSelected('linkedin')
             }}
             >
                 <AntDesign name="linkedin-square" size={18} color={`${selected == 'linkedin' ? 'white':'black'}`} />
             </CustomButton2>
-            <CustomButton2 title={"social"} containerStyles={`flex-1 mx-1 py-3 shadow-lg border ${selected == 'xcom' ? 'bg-vibrant':'bg-neutral'}`}
+            <CustomButton2 title={"social"} containerStyles={`flex-1 mx-1 py-3 shadow-lg border ${selected == 'xcom' ? 'bg-primary':'bg-accentII'}`}
             onPress={()=>{
                 setSelected('xcom')
             }}
@@ -213,12 +216,12 @@ const SocialModal2 = ({socials, setShow}:{
                 Something went Wrong!!
             </Text>
             </>}
-        <CustomButton2 title='socials' containerStyles='w-full my-3 bg-vibrant py-3 '
+        <CustomButton2 title='socials' containerStyles='w-full my-3 bg-primary py-3 '
         onPress={()=>{
             updateSocials()
         }}
         >
-            <Text className='text-md font-iregular text-primary'>
+            <Text className='text-md font-isemibold text-textcolorIII'>
                 {loading ? <ActivityIndicator color={"white"} />:"Update"}
             </Text>
         </CustomButton2>

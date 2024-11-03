@@ -3,8 +3,16 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import {Logo, Logo2, PuzzelGraphic} from "@/constants/Images"
 import CustomButton from "@/components/ui/CustomButton";
 import { router } from "expo-router";
+import { useEffect } from "react";
+import { GoogleSignin } from "@react-native-google-signin/google-signin";
+// import { SignInWithGoogle } from "@/firebase/services/rnFirebase/auth";
 
 export default function Index() {
+  useEffect(()=>{
+    GoogleSignin.configure({
+        webClientId: "157758303431-6nssjbt2aopl7219sugns2b400s2dh4a.apps.googleusercontent.com", 
+    })  
+},[])
   return (
    <SafeAreaView className="h-full bg-bgcolor">
     <ScrollView contentContainerStyle={{
@@ -30,8 +38,9 @@ export default function Index() {
       </View>
       <View className="flex-1 justify-center items-center">
         <CustomButton title="Get Started" containerStyles="bg-primary w-3/5" textStyles="font-isemibold text-textcolorIII text-sm" onPress={()=>{
-          router.push("/(auth)/registration/EducationAndJob")
+          router.push("/(auth)/signup")
         }} />
+        
       </View>
       </View>
     </ScrollView>

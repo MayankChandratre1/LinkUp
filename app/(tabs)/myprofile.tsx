@@ -8,6 +8,7 @@ import { User } from '@/types/userTypes'
 import { getCurrentUser } from '@/firebase/services/rnFirebase/auth'
 import { getCurrentUserInfo } from '@/firebase/services/rnFirebase/db'
 import { calculatePercentage } from '@/lib/profileCompletion'
+import MyProfileComponent from '@/components/ui/Profile/MyProfile/MyProfileComponent'
 /*
   Ayush Kumar Singh
 Bangalore, India
@@ -37,7 +38,8 @@ const myprofile = () => {
         <KeyboardAvoidingView behavior={Platform.OS == 'ios' ? 'padding':undefined} style={{
                 flex:1
              }}>
-                <MyProfile user={user} />
+                {/* <MyProfile user={user} /> */}
+                <MyProfileComponent user={user} />
              </KeyboardAvoidingView>
       </ScrollView>
       </SafeAreaView>

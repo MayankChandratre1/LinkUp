@@ -31,7 +31,7 @@ const NameForm = () => {
     <ScrollView className="flex-1" contentContainerStyle={{ height: '100%' }}>
       <View className="h-full justify-center">
         <Text className="text-textcolorII text-lg mb-2 font-iregular">Let's start simple...</Text>
-        <Text className="text-textcolorII text-3xl font-ibold mb-6">What’s your name?</Text>
+        <Text className="text-textcolorII text-3xl font-ibold mb-6">Whats your name?</Text>
         
         {error && <Text className='text-red-500 mb-2'>{error}</Text>}
   
@@ -48,7 +48,7 @@ const NameForm = () => {
           containerStyles='p-4 rounded-lg bg-primary mb-4'
           onPress={handleNext}
         >
-          <Text className='text-md font-semibold text-center text-textcolorIII'>Next</Text>
+          <Text className='text-md font-isemibold text-center text-textcolorIII'>Next</Text>
         </CustomButton2>
   
         {/* <CustomButton2

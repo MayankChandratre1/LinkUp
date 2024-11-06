@@ -9,10 +9,11 @@ import { functions_data } from '@/util/demo-data'
 import FunctionList from '@/components/ui/FunctionsTab/FunctionList'
 import { Entypo } from '@expo/vector-icons'
 import UserList from '@/components/ui/FunctionsTab/UserList'
-import { getFilteredFunctionsList } from '@/firebase/services/rnFirebase/db'
+import { getCurrentUserInfo, getFilteredFunctionsList } from '@/firebase/services/rnFirebase/db'
 import { FunctionType } from '@/types/functionTypes'
-import { useFocusEffect } from 'expo-router'
+import { router, useFocusEffect } from 'expo-router'
 import ByPeopleList from '@/components/ui/FunctionsTab/ByPeopleList'
+import { getCurrentUser } from '@/firebase/services/rnFirebase/auth'
 
 const functions = () => {
   const [activeCat, setActiveCat] = useState('All');
@@ -32,6 +33,8 @@ const functions = () => {
       console.error('Error fetching function items:', error);
     }
   };
+
+  
 
   // Initial load hen the component is first mounted
   useEffect(() => {

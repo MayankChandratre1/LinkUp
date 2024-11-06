@@ -47,8 +47,8 @@ export const updateUser = async ({user}:{
                 ...prevUser,
                 ...user ,
                 professionalInfo:{
-                    ...user.professionalInfo,
-                    ...prevUser?.professionalInfo
+                  ...prevUser?.professionalInfo,
+                    ...user.professionalInfo
                 },
             })
         }
@@ -78,6 +78,16 @@ export const getUserById = async (id:string) => {
     }
     console.log("#USER\n"+JSON.stringify(user))
     return user
+}
+export const getUserByEmail = async (email:string) => {
+    const userSnapshot = await firestore().collection('users').where('email','==',email).get()
+    const user = {
+        ...userSnapshot.docs[0].data()
+    }
+    console.log("#USER\n"+JSON.stringify(user))
+    return {
+        ...user
+    }
 }
 
 export const getCurrentUserInfo = async () => {

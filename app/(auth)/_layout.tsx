@@ -11,6 +11,9 @@ const _layout = () => {
         <Stack.Screen name='signup' options={{
             headerShown:false
         }} />
+        <Stack.Screen name='signup1' options={{
+            headerShown:false
+        }} />
         <Stack.Screen name='register' options={{
             headerShown:false
         }} />

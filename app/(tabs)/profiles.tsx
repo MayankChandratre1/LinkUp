@@ -18,6 +18,7 @@ const profiles = () => {
   useEffect(()=>{
     getCurrentUserInfo().then(data => {
       if(data?.isNewProfile){
+        console.log("NEW PROFILE")
         setIsNewProfile(true)
       }
     })

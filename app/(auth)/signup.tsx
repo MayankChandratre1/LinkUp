@@ -1,13 +1,14 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { View, TextInput, Text, ScrollView, Alert, TouchableOpacity } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { addEmailPassword, getCurrentUser, sendOtp, sendVerificationMail, signOut, verifyPhone } from '@/firebase/services/rnFirebase/auth';
+import { addEmailPassword, getCurrentUser, linkPhone, sendOtp, sendVerificationMail, signOut, verifyPhone } from '@/firebase/services/rnFirebase/auth';
 import { router } from 'expo-router';
 import { FirebaseAuthTypes } from '@react-native-firebase/auth';
 import { CustomButton2 } from '@/components/ui/CustomButton';
-import { addUser, getCurrentUserInfo } from '@/firebase/services/rnFirebase/db';
+import { addUser, getCurrentUserInfo, getUserByEmail } from '@/firebase/services/rnFirebase/db';
 import { CountryPicker } from 'react-native-country-codes-picker';
 import auth from '@react-native-firebase/auth';
+import SignUpWithPhone from '@/components/auth/SignUpWithPhone';
 
 const SignInForm = () => {
   const [phone, setPhone] = useState('');
@@ -28,7 +29,7 @@ const SignInForm = () => {
 
   useEffect(()=>{
     getCurrentUser().then(user => {
-      if(user?.emailVerified){
+      if(user){
         router.push("/(tabs)/profiles")
       }
     })
@@ -87,11 +88,17 @@ const SignInForm = () => {
       const user = await getCurrentUser()
       if(user){
         const uid = user?.uid
-        const existUser = await getCurrentUserInfo()
+        const existUser = await getUserByEmail(email)
         if(!existUser){
           await addUser({
             phone,
             isNewProfile:true
+          },uid)
+        }else{
+          await addUser({
+            ...existUser,
+            phone,
+            isNewProfile:false
           },uid)
         }
       }
@@ -135,6 +142,11 @@ const SignInForm = () => {
         console.error("FirebaseError:\n"+JSON.stringify(err));
     }
 }
+  return (
+    <SignUpWithPhone changeMode={()=>{
+      router.push("/(auth)/signin3")
+    }} />
+  )
 
   return (
     <SafeAreaView className="flex-1 p-4 bg-bgcolor">
@@ -191,14 +203,15 @@ const SignInForm = () => {
             <TouchableOpacity onPress={handleSignIn} className="bg-primary p-3 rounded-md mt-4">
                 <Text className="font-iregular text-textcolorIII text-center">{loading ? "Sending OTP...":"Sign Up"}</Text>
             </TouchableOpacity>
-            <View className='bg-bgcolor mt-4'>
-            <Text className='text-center font-ilight'>
-                Have an account? <TouchableOpacity onPress={()=>{
+            <View className='flex-row justify-center bg-bgcolor mt-4'>
+            <Text className='font-ilight'>
+                Already have an account? </Text>
+                <TouchableOpacity onPress={()=>{
                   router.push("/(auth)/signin3")
                 }}>
                     <Text className='underline text-textcolorII font-iregular'>Sign In</Text>
                 </TouchableOpacity>
-             </Text>
+             
              </View>
             
           </>:null

@@ -23,6 +23,10 @@ import { CustomButton2 } from "../../CustomButton";
 import { signOut } from "@/firebase/services/rnFirebase/auth";
 import UserPhotosSlider from "./UserPhotoSlider";
 import ProgressBar from "../../ProgresBar";
+import EditPersonalInfo from "./EditPersonalInfo";
+import EditEduInfo from "./EditEduInfo";
+import EditProfessionInfo from "./EditProfessionInfo";
+import EditInterestsInfo from "./EditInterestsInfo";
 
 const MyProfileComponent = ({ user }: { user: Partial<User> | null }) => {
   const [percent, setPercent] = useState(0);
@@ -114,7 +118,7 @@ const MyProfileComponent = ({ user }: { user: Partial<User> | null }) => {
     !showSettings &&  <SafeAreaView className="flex-1 px-2">
     <ScrollView className="flex-1 ">
         <View className="w-full h-full flex-1 pb-3">
-        <UserPhotosSlider photos={user?.photos || []} />
+        <UserPhotosSlider notCurrUser={false} user={user} photos={user?.photos || []} />
         <Card user={user} setShow={setShowSocialsModal} />
         <Details user={user} />
         </View>
@@ -138,7 +142,10 @@ const Card = ({ user, setShow }: { user: Partial<User> | null, setShow: React.Di
                  <SocialModal2 setShow={setShowSocialsModal} socials={user?.socials} />
         }
         <View className="p-2 rounded-lg mt-2 bg-accentII/80 border">
-            <ProfileHeader userId={user?.id || ""} name={user?.name || "User"} isVerified={user?.isProfilePicVerified || false} />
+            <ProfileHeader notCurrUser={false} userId={user?.id || ""} name={user?.name || "User"} isVerified={user?.isProfilePicVerified || false} />
+            <View className="p-2">
+             <Text className='text-sm font-iregular text-textcolorI'>{user?.bio}</Text>
+            </View>
            { user &&  <ProgressBar percentage={calculatePercentage(user)} />}
            <View className="flex-row w-full items-center justify-center my-2 mt-3">
           {user?.socials?.instagram ? (
@@ -201,13 +208,30 @@ const Card = ({ user, setShow }: { user: Partial<User> | null, setShow: React.Di
 }
 
 const Details = ({ user }: { user: Partial<User> | null }) => {
+  const [isPersonalEditing, setIsPersonalEditing] = useState(false);
+  const [isEduEditing, setIsEduEditing] = useState(false);
+  const [isJobEditing, setIsJobEditing] = useState(false);
+  const [isInterestEditing, setIsInterestEditing] = useState(false);
+
+
     
     
     return (
         <View className="">
+            <View className="flex-row justify-center">
             <Text className="text-lg font-iregular text-center my-2">Personal Information</Text>
-           <View className="flex-row">
-           <Text className="text-lg font-iregular bg-accentII/80 border p-3 rounded-lg mt-2 flex-1 mx-1 text-center">Gender: {
+            <CustomButton2 title={"Edit"} onPress={()=>{
+              setIsPersonalEditing(!isPersonalEditing)
+            }} containerStyles="ml-2">
+              <FontAwesome6 name="pencil" size={12} color="#999" />
+            </CustomButton2>
+            </View>
+           {
+            isPersonalEditing && user ? <EditPersonalInfo userData={user} close={()=>{
+              setIsPersonalEditing(false)
+            }} /> : (<>
+              <View className="flex-row">
+               <Text className="text-lg font-iregular bg-accentII/80 border p-3 rounded-lg mt-2 flex-1 mx-1 text-center">Gender: {
                user?.personalInfo?.gender
              }</Text>
              <Text className="text-lg font-iregular bg-accentII/80 border p-3 rounded-lg mt-2 flex-1 mx-1 text-center">Age : {user?.personalInfo?.age} Years</Text>
@@ -218,36 +242,85 @@ const Details = ({ user }: { user: Partial<User> | null }) => {
            </View>
            <View className="flex-row">
              <Text className="text-lg font-iregular bg-accentII/80 border p-3 rounded-lg mt-2 flex-1 mx-1 text-center">BirthDay: {
-                new Date(Number(user?.personalInfo?.dateOfBirth?.seconds)*1000 || "").toDateString().split(" ").slice(1).join(" ")
+                new Date(Number(user?.personalInfo?.dateOfBirth?.nanoseconds) || "").toDateString().split(" ").slice(1).join(" ")
              }</Text>
            </View>
+            </>)
+           }
            {
-               user?.professionalInfo?.education && <>
-                <Text className="text-lg font-iregular text-center my-2">Education</Text>
-           <View className="">
-                <Text className="text-lg font-iregular bg-accentII/80 border p-3 rounded-lg mt-2 flex-1 mx-1 text-center">{user?.professionalInfo?.education}</Text>
-                <Text className="text-lg font-iregular bg-accentII/80 border p-3 rounded-lg mt-2 flex-1 mx-1 text-center">{user?.professionalInfo?.college}</Text>
-           </View> 
+               user?.professionalInfo?.education || isEduEditing ? <>
+                <View className="flex-row justify-center">
+            <Text className="text-lg font-iregular text-center my-2">Education</Text>
+            <CustomButton2 title={"Edit"} onPress={()=>{
+              setIsEduEditing(!isEduEditing)
+            }} containerStyles="ml-2">
+              <FontAwesome6 name="pencil" size={12} color="#999" />
+            </CustomButton2>
+            </View>
+           {
+            isEduEditing && user ? <EditEduInfo userData={user} close={()=>{
+              setIsEduEditing(false)
+            }} /> : <>
+            <Text className="text-lg font-iregular bg-accentII/80 border p-3 rounded-lg mt-2 flex-1 mx-1 text-center">{user?.professionalInfo?.education}</Text>
+            <Text className="text-lg font-iregular bg-accentII/80 border p-3 rounded-lg mt-2 flex-1 mx-1 text-center">{user?.professionalInfo?.college}</Text>
+            </>
+           }
+               </>:<>
+                <CustomButton2 title={"Add Education"} onPress={()=>{
+                    setIsEduEditing(true)
+                }} containerStyles="bg-primary/20 p-4 px-4 mt-4">
+                    <Text className="font-isemibold text-textcolorII">+ Add Education</Text>
+                </CustomButton2>
                </>
            }
           {
-              user?.professionalInfo?.current_job && <>
-               <Text className="text-lg text-center font-iregular my-2">Profession</Text>
-           <View className="flex-row">
-                <Text className="text-lg font-iregular bg-accentII/80 border p-3 rounded-lg mt-2 flex-1 mx-1 text-center">{user?.professionalInfo?.current_job}</Text>
-           </View>
-              </>
+              user?.professionalInfo?.current_job || isJobEditing ? <>
+               <View className="flex-row justify-center">
+            <Text className="text-lg font-iregular text-center my-2">Profession</Text>
+            <CustomButton2 title={"Edit"} onPress={()=>{
+              setIsJobEditing(!isJobEditing)
+            }} containerStyles="ml-2">
+              <FontAwesome6 name="pencil" size={12} color="#999" />
+            </CustomButton2>
+            </View>
+           {
+            isJobEditing && user ? <EditProfessionInfo userData={user} close={()=>{
+              setIsJobEditing(false)
+            }} /> : <>
+            <Text className="text-lg font-iregular bg-accentII/80 border p-3 rounded-lg mt-2 flex-1 mx-1 text-center">{user?.professionalInfo?.current_job}</Text>
+            </>
+           }
+              </>:<>
+                <CustomButton2 title={"Add Education"} onPress={()=>{
+                    setIsJobEditing(true)
+                }} containerStyles="bg-primary/20 p-4 px-4 mt-4">
+                    <Text className="font-isemibold text-textcolorII">+ Add Profession</Text>
+                </CustomButton2>
+               </>
           }
            {
             user?.interests && <>
-              <Text className="text-lg text-center font-iregular my-2">Interests</Text>
-           <View className="flex-row flex-wrap">
+              <View className="flex-row justify-center">
+            <Text className="text-lg font-iregular text-center my-2">Interests</Text>
+            <CustomButton2 title={"Edit"} onPress={()=>{
+              setIsInterestEditing(!isInterestEditing)
+            }} containerStyles="ml-2">
+              <FontAwesome6 name="pencil" size={12} color="#999" />
+            </CustomButton2>
+            </View>
+           {
+            isInterestEditing && user ? <EditInterestsInfo userData={user} close={()=>{
+              setIsInterestEditing(false)
+            }} /> : <>
+            <View className="flex-row flex-wrap">
                 {
                     user?.interests?.map((interest, index)=>(
                         <Text key={index} className="text-lg font-iregular bg-accentII/80 border p-3 rounded-lg mt-2 flex-1 mx-1 text-center min-w-[150px]">{interest}</Text>
                     ))
                 }
            </View>
+            </>
+           }
             </>
            }
         </View>
@@ -266,18 +339,9 @@ const SettingsMenu = ({ user, close }: { user: Partial<User> | null, close:() =>
          <View className="bg-bgcolor">
             <TouchableOpacity
                 className="flex-row items-center justify-between p-3 border-b border-gray-200"
-                onPress={() => {
-                    router.push("/(tabs)/notifications")
-                }}
-            >
-                <Text className="font-iregular text-lg">Edit Profile</Text>
-                <Ionicons name="settings" size={24} color="black" />
-            </TouchableOpacity>
-            <TouchableOpacity
-                className="flex-row items-center justify-between p-3 border-b border-gray-200"
                 onPress={async () => {
                     const result = await signOut()
-                        router.push("/(auth)/signin3")
+                        router.push("/(auth)/signup1")
                 }}
             >
                 <Text className=" font-iregular text-lg">Sign Out</Text>

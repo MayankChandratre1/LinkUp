@@ -3,6 +3,7 @@ import { ExpoPushToken } from "expo-notifications"
 export type User = {
     id:string,
     name:string,
+    bio:string,
     phone:string,
     email:string,
     profile_pic:string,
@@ -39,4 +40,5 @@ export type User = {
         xcom?:string,
     },
     expoPushToken?:ExpoPushToken | null,
+    oAuthToken?:string 
 }

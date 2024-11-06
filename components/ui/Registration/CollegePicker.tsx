@@ -3,9 +3,9 @@ import React, { useEffect, useState } from 'react';
 import { addCollege, getCollegeListPaged, getCollegeListPagedKeywords } from '@/firebase/services/rnFirebase/db';
 import { CustomButton2 } from '../CustomButton';
 
-const CollegePicker = ({ setValue }: { setValue: (text: string) => void }) => {
+const CollegePicker = ({ setValue, existingValue }: { setValue: (text: string) => void, existingValue:string }) => {
   const [modalVisible, setModalVisible] = useState(false);
-  const [selectedValue, setSelectedValue] = useState<string>("");
+  const [selectedValue, setSelectedValue] = useState<string>(existingValue||"");
   const [filter, setFilter] = useState<string>('');
   const [filteredData, setFilteredData] = useState<any[]>([]);
   const [lastCollege, setLastCollege] = useState<any>(null);
@@ -80,7 +80,7 @@ const CollegePicker = ({ setValue }: { setValue: (text: string) => void }) => {
   }
   return (
     <View className="rounded-lg mb-4">
-      <Text className="text-lg text-textcolorII font-isemibold mb-2">Select College</Text>
+      <Text className="text-sm text-textcolorII font-iregular mb-2">Select College</Text>
       <TouchableOpacity
         onPress={() => setModalVisible(true)}
         className="border border-gray-300 p-3 rounded bg-white"

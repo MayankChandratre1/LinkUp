@@ -8,8 +8,8 @@ import { CustomButton2 } from '@/components/ui/CustomButton';
 import { addUser, getCurrentUserInfo } from '@/firebase/services/rnFirebase/db';
 import { CountryPicker } from 'react-native-country-codes-picker';
 
-const SignUpWithPhone = ({changeMode}:{
-    changeMode:()=>void
+const NewSignUpWithPhone = ({setIndicator}:{
+    setIndicator:()=>void
 }) => {
   const [phone, setPhone] = useState('');
   const [countryCode, setCountryCode] = useState('+91');
@@ -20,20 +20,13 @@ const SignUpWithPhone = ({changeMode}:{
   const [loading, setLoading] = useState(false)
   const otpBoxes = useRef<Array<TextInput | null>>([])
 
-  useEffect(()=>{
-    getCurrentUser().then(user => {
-      console.log("USER:"+JSON.stringify(user));
-      
-      if(user){
-        router.push("/(tabs)/profiles")
-      }
-    })
-  },[])
+ 
 
   const handleSignIn = async () => {
     setLoading(true)
     setError(false);
     if (phone && countryCode) {
+      setIndicator()
       const vid = await sendOtp(`${countryCode}${phone}`);
       if (vid) {
         setVerificationId(vid);
@@ -69,10 +62,13 @@ const SignUpWithPhone = ({changeMode}:{
           await addUser({
             phone,
             isNewProfile:true
-          },uid)
+          },uid) 
+        }else if(existUser && !existUser.isNewProfile){
+          router.push("/(tabs)/profiles")
+        }else{
+          router.push("/(auth)/getstarted");
         }
       }
-      router.push("/(auth)/signup");
     } else {
       setError(true);
     }
@@ -80,24 +76,20 @@ const SignUpWithPhone = ({changeMode}:{
   };
 
   return (
-    <SafeAreaView className="flex-1 p-4 bg-bgcolor">
-      <ScrollView className="h-full">
-        <Text className="text-textcolorII text-xl mb-4 font-ibold">Sign Up</Text>
+    <View>
         
-
-        
-        {
+       {
           !verificationId ? 
           <>
-            <View className='flex-row items-center mb-4'>
-              <CustomButton2 title="country" containerStyles='m-2 p-3 rounded-md bg-neutral' onPress={()=>{
+            <View className='flex-row items-center mb-2 p-0'>
+              <CustomButton2 title="country" containerStyles=' py-[11px] px-2 rounded-none rounded-tl-md rounded-bl-md bg-bgcolor border' onPress={()=>{
                 setShow(true)
               }}>
-                <Text className=' font-iregular'>{countryCode}</Text>
+                <Text className='font-iregular'>{countryCode}</Text>
               </CustomButton2>
               <TextInput
-                className="border border-neutral p-2 flex-1 rounded"
-                placeholder="Phone"
+                className="border font-iregular  border-neutral py-2 px-2 flex-1 rounded-none rounded-tr-md rounded-br-md"
+                placeholder="Phone Number"
                 value={phone}
                 onChangeText={setPhone}
                 keyboardType="numeric"
@@ -106,28 +98,19 @@ const SignUpWithPhone = ({changeMode}:{
               />
             </View>
             {error && <Text className="text-red-500 font-iregular text-center my-2">Something Went Wrong!</Text>}
-            <TouchableOpacity onPress={handleSignIn} className="bg-vibrant p-3 rounded-md mt-4">
-                <Text className="text-textcolorIII text-center font-isemibold">{loading ? "Sending OTP...":"Sign Up"}</Text>
+            <TouchableOpacity onPress={handleSignIn} className="bg-primary p-3 rounded-md">
+                <Text className="text-textcolorIII text-center font-isemibold">{loading ? "Sending OTP...":"Sign In"}</Text>
             </TouchableOpacity>
             <View className='bg-bgcolor mt-4'>
-            <Text className='text-center font-ilight'>
+            {/* <Text className='text-center font-ilight'>
                 Or continue with <TouchableOpacity onPress={changeMode}>
                     <Text className='underline text-textcolorII font-ilight'>Google</Text>
                 </TouchableOpacity>
-            </Text>
+            </Text> */}
         </View>
           </>:null
         }
 
-        <CountryPicker
-        show={show}
-        lang='en'
-        // when picker button press you will get the country object with dial code
-        pickerButtonOnPress={(item) => {
-          setCountryCode(item.dial_code);
-          setShow(false);
-        }}
-      />
 
         {verificationId ? (
           <View className='mt-4'>
@@ -156,23 +139,23 @@ const SignUpWithPhone = ({changeMode}:{
               )
             })}
             </View>
-            {error && <Text className="text-red-500 text-center my-2">ERROR IN VERIFICATION TRY AGAIN!</Text>}
+            {error && <Text className="text-red-500 font-iregular text-center my-2">ERROR IN VERIFICATION TRY AGAIN!</Text>}
             <CustomButton2
               title="Verify OTP"
-              containerStyles="p-3 rounded-md m-2"
+              containerStyles="p-3 rounded-md m-2 bg-primary"
               onPress={async () => {
                 await verifyOtp(verificationId!, otpCode.join(''));
+                // router.push("/(auth)/getstarted");
               }}
             >
-              <Text>{loading ? "Verifying...":"Verify"}</Text>
+              <Text className='text-textcolorIII font-isemibold'>{loading ? "Verifying...":"Verify"}</Text>
             </CustomButton2>
           </View>
         ) : null}
 
-        
-      </ScrollView>
-    </SafeAreaView>
+    </View>
+     
   );
 };
 
-export default SignUpWithPhone;
+export default NewSignUpWithPhone;

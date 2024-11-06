@@ -4,18 +4,19 @@ import { CustomButton2 } from '../CustomButton'
 import { AntDesign, MaterialIcons } from '@expo/vector-icons'
 import { router } from 'expo-router'
 
-const ProfileHeader = ({name, isVerified, userId}:{
+const ProfileHeader = ({name, isVerified, userId, notCurrUser}:{
     name:string,
     isVerified:boolean,
-    userId: string
+    userId: string,
+    notCurrUser?:boolean
 }) => {
   return (
-    <View className='p-3 flex-row justify-between items-center'>
-      <Text className='font-ibold text-lg flex-1'>{name}</Text>
+    <View className='p-3 justify-between'>
+      <Text className='font-ibold text-lg'>{name}</Text>
       
-      <View className='flex-row px-3'>
-        {!isVerified ? <>
-            <CustomButton2 title='Get Verified' containerStyles='flex-row p-2 items-center justify-center ml-3 bg-textcolorIII/80'
+      <View className='flex-row'>
+        {!isVerified && !notCurrUser ? <>
+            <CustomButton2 title='Get Verified' containerStyles='flex-row p-2 items-center justify-center  bg-textcolorIII/80'
             onPress={()=>{
                 router.push(`/(verification)/userprofile/${userId}`)
             }}
@@ -25,6 +26,7 @@ const ProfileHeader = ({name, isVerified, userId}:{
         </CustomButton2>
         </>:null}
       </View>
+      
     </View>
   )
 }

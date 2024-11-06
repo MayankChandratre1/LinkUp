@@ -1,14 +1,16 @@
-import { View, Text, Image } from 'react-native'
-import React from 'react'
-import { Tabs } from 'expo-router'
+import { View, Text, Image, TouchableOpacity } from 'react-native'
+import React, { useEffect } from 'react'
+import { router, Tabs } from 'expo-router'
 import { Bookmark, Home, Profile } from '@/constants/Icons'
 import PrimaryHeader from '@/components/ui/Header/PrimaryHeader'
 import { StatusBar } from 'expo-status-bar'
 import { Colors } from '@/constants/Colors'
+import { getCurrentUser } from '@/firebase/services/rnFirebase/auth'
+import { getCurrentUserInfo } from '@/firebase/services/rnFirebase/db'
 
-const TabIcon = ({icon, color, focused, name}:any) => {
+const TabIcon = ({icon, color, focused, name, isNewProfile}:any) => {
     return (
-      <View className='items-center justify-center gap-1 h-16'>
+      <View  className='items-center justify-center gap-1 h-16'>
         <Image
           source={icon}
           resizeMode='contain'
@@ -24,10 +26,11 @@ const TabIcon = ({icon, color, focused, name}:any) => {
   
 
 const TabLayout = () => {
+  
   return (
     <>
     
-    <Tabs screenOptions={{
+    <Tabs  screenOptions={{
         tabBarShowLabel:false,
         tabBarActiveTintColor: Colors.vibrant,
         tabBarInactiveTintColor:"#cfcfcf",
@@ -41,20 +44,21 @@ const TabLayout = () => {
         <Tabs.Screen name='profiles' options={{
             headerShown:false,
             tabBarIcon: ({color, focused}) => (
-            <TabIcon icon={Home} color={color} focused={focused} name="People"  />
+            <TabIcon  icon={Home} color={color} focused={focused} name="People"  />
           )
+          
         }}  />
         <Tabs.Screen name='functions' options={{
             headerShown:false,
             tabBarIcon: ({color, focused}) => (
-              <TabIcon icon={Bookmark} color={color} focused={focused} name="Functions"  />
+              <TabIcon  icon={Bookmark} color={color} focused={focused} name="Functions"  />
             )
         }} />
         <Tabs.Screen name='myprofile' options={{
             headerShown:false,
             tabBarHideOnKeyboard:true,
             tabBarIcon: ({color, focused}) => (
-              <TabIcon icon={Profile} color={color} focused={focused} name="Me"  />
+              <TabIcon  icon={Profile} color={color} focused={focused} name="Me"  />
             )
         }} />
         <Tabs.Screen name='newmyprofile' options={{

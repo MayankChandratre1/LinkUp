@@ -1,32 +1,39 @@
-import { View, Text, Modal, FlatList, TouchableOpacity, TextInput } from 'react-native';
-import React, { useEffect, useState } from 'react';
-import { qualifications_list } from '@/util/EDU_DATA.js';
+import { View, Text, TouchableOpacity, Modal, TextInput, FlatList } from 'react-native'
+import React, { useEffect, useState } from 'react'
+import { states } from '@/util/STATES_DATA'
 
-const EducationPicker = ({ setValue, existingValue }: { setValue: (text: string) => void, existingValue:string }) => {
+const StatePicker = ({setValue, existingValue}:{
+    setValue: (state: {name: string, isoCode: string}) => void,
+    existingValue?: {name: string, isoCode: string}
+}) => {
+//   const [statesList, setStatesList] = React.useState<any[]>(states)
   const [modalVisible, setModalVisible] = useState(false);
-  const [selectedValue, setSelectedValue] = useState<string>(existingValue || "");
+  const [selectedValue, setSelectedValue] = useState<string>(existingValue?.name||"");
   const [filter, setFilter] = useState<string>("")
-  const [data, setData] = useState(qualifications_list.qualifications)
+  const [data, setData] = useState(states)
   
   useEffect(()=>{
-     setData(qualifications_list.qualifications.filter((item)=> item.abbr.toLowerCase().includes(filter.toLowerCase()) || item.full.toLowerCase().includes(filter.toLowerCase())))
+     setData(states.filter((item)=> item.name.toLowerCase().includes(filter.toLowerCase()) || item.name.toLowerCase().includes(filter.toLowerCase())))
   },[filter])
   
-  const handleSelect = (abbr: string) => {
-    setSelectedValue(abbr);
-    setValue(abbr);
+  const handleSelect = (name: string, isoCode: string) => {
+    setSelectedValue(name);
+    setValue({
+        name,
+        isoCode
+    });
     setModalVisible(false);
   };
 
   return (
     <View className=" rounded-lg">
-      <Text className="text-sm text-textcolorII font-iregular mb-2">Select Qualification</Text>
+      <Text className="text-sm text-textcolorII font-iregular mb-2">Select State</Text>
       <TouchableOpacity
         onPress={() => setModalVisible(true)}
         className="border border-gray-300 p-3 rounded bg-white"
       >
         <Text className="text-gray-700 font-isemibold">
-          {selectedValue ? selectedValue : "Select your qualification"}
+          {selectedValue ? selectedValue : "Select your State"}
         </Text>
       </TouchableOpacity>
 
@@ -49,14 +56,14 @@ const EducationPicker = ({ setValue, existingValue }: { setValue: (text: string)
             />
             <FlatList
               data={data}
-              keyExtractor={(item) => item.full}
+              keyExtractor={(item) => item.name}
               className=' rounded-lg'
               renderItem={({ item }) => (
                 <TouchableOpacity
-                  onPress={() => handleSelect(item.abbr)}
+                  onPress={() => handleSelect(item.name, item.isoCode)}
                   className="p-3 border-b border-accentI rounded-lg"
                 >
-                  <Text className="text-gray-800 font-iregular">{item.abbr + " - "+ item.full}</Text>
+                  <Text className="text-gray-800 font-iregular">{item.name}</Text>
                 </TouchableOpacity>
               )}
             />
@@ -71,6 +78,7 @@ const EducationPicker = ({ setValue, existingValue }: { setValue: (text: string)
       </Modal>
     </View>
   );
-};
 
-export default EducationPicker;
+}
+
+export default StatePicker

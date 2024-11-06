@@ -1,4 +1,4 @@
-import { View, Text } from 'react-native'
+import { View, Text, ScrollView, KeyboardAvoidingView, Platform } from 'react-native'
 import React, { useEffect, useState } from 'react'
 import { useLocalSearchParams } from 'expo-router'
 import { demo_profiles } from '@/util/demo-data'
@@ -6,6 +6,7 @@ import { SafeAreaView } from 'react-native-safe-area-context'
 import ProfilePage from '@/components/ui/Profile/ProfilePage'
 import { User } from '@/types/userTypes'
 import { getUserById } from '@/firebase/services/rnFirebase/db'
+import ViewProfilePage from '@/components/ui/Profile/UserProfiles/ViewProfilePage'
 
 const UserProfile = () => {
   const params = useLocalSearchParams()
@@ -24,14 +25,23 @@ const UserProfile = () => {
   
   if(!user?.id){
     return <View>
-      <Text className='text-violet-500'>Hello</Text>
+      <Text className='text-violet-500 font-ibold'>Loading..</Text>
     </View>
   }
 
   return (
-    <SafeAreaView className='flex-1'>
-      <ProfilePage user={user}/>
-    </SafeAreaView>
+    <SafeAreaView className='bg-bgcolor h-full'>
+    <ScrollView contentContainerStyle={{
+  height:"100%",
+  }}>
+    <KeyboardAvoidingView behavior={Platform.OS == 'ios' ? 'padding':undefined} style={{
+            flex:1
+         }}>
+            {/* <MyProfile user={user} /> */}
+            <ViewProfilePage user={user} />
+         </KeyboardAvoidingView>
+  </ScrollView>
+  </SafeAreaView>
   )
 }
 

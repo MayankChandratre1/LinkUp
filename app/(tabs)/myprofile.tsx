@@ -9,6 +9,7 @@ import { getCurrentUser } from '@/firebase/services/rnFirebase/auth'
 import { getCurrentUserInfo } from '@/firebase/services/rnFirebase/db'
 import { calculatePercentage } from '@/lib/profileCompletion'
 import MyProfileComponent from '@/components/ui/Profile/MyProfile/MyProfileComponent'
+import { router } from 'expo-router'
 /*
   Ayush Kumar Singh
 Bangalore, India
@@ -22,6 +23,7 @@ const myprofile = () => {
 
   useEffect(()=>{
     getCurrentUserInfo().then(user => {
+     
         setUser(user)
         if(user){
           setPercentCompletion(calculatePercentage(user))

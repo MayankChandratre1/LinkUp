@@ -1,108 +1,76 @@
-import React, { useCallback, useEffect, useState } from 'react';
-import { View, TextInput, Text, ScrollView, Button, Alert } from 'react-native';
-import { SafeAreaView } from 'react-native-safe-area-context';
-import { addEmailPassword, getCurrentUser, sendVerificationMail, signUpEmail } from '@/firebase/services/rnFirebase/auth'; // Assuming your signUp function is in this path
-import { router } from 'expo-router';
-import { CustomButton2 } from '@/components/ui/CustomButton';
-import auth, { FirebaseAuthTypes } from '@react-native-firebase/auth';
+import { View, Text, SafeAreaView, Image } from 'react-native'
+import React, { useEffect, useState } from 'react'
+import SignUpWithPhone from '@/components/auth/SignUpWithPhone'
+import NewSignUpWithPhone from '@/components/auth/NewSignUpWithPhone'
+import SignInWithGoogle from '@/components/auth/SignInWithGoogle'
+import {PuzzelGraphic} from '@/constants/Images'
+import { getCurrentUserInfo } from '@/firebase/services/rnFirebase/db'
+import { router } from 'expo-router'
 
-const SignUpForm = () => {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [confirmPassword, setConfirmPassword] = useState('');
-  const [isUser, setIsUser] = useState(false);
-  const [emailSent, setEmailSent] = useState(false);
+const signup1 = () => {
+  const [indicator, setIndicator] = useState(true)
   
-  useEffect(()=>{
-    getCurrentUser().then((user)=>{
-        if(user?.emailVerified){
-            setIsUser(true)
-            router.replace("/(tabs)/profiles")
+    useEffect(()=>{
+      getCurrentUserInfo().then(user => {
+        console.log("USER:"+JSON.stringify(user));
+        if(user && Boolean(user?.isNewProfile)){
+          router.push("/(auth)/getstarted")
+        }else if(user){
+          router.push("/(tabs)/profiles")
         }
-    })
-  },[])
-
-  const handleSignUp = async () => {
-    if (password !== confirmPassword) {
-      Alert.alert("Error", "Passwords do not match");
-      return;
-    }
-
-    const user = await addEmailPassword(email, confirmPassword);
-
-    if(user){
-      Alert.alert("Check Your EMail for verification!")
-      setEmailSent(true)
-    }else{
-      Alert.alert("Something went wrong!")
-    }
-    
-  };
-
-  const checkVerification = async () => {
-    await auth().currentUser?.reload()
-    const user = await auth().currentUser
-    if(user?.emailVerified){
-      router.push("/(tabs)/profiles")
-    }else{
-      Alert.alert("You are not verified!")
-    }
-}
-
-  const sendMail = async () => {
-    try{
-        const res = await sendVerificationMail()
-    }catch(err){
-        console.error("FirebaseError:\n"+JSON.stringify(err));
-    }
-}
-
-
+      })
+    },[])
+  
   return (
-    <SafeAreaView className='flex-1 p-4 bg-bgcolor'>
-      <ScrollView className="h-full">
-        <Text className="text-textcolorII text-xl mb-4">Sign Up</Text>
+    <SafeAreaView className='flex-1 bg-bgcolor py-10 pb-10'>
+      <View className='justify-center items-center p-3'>
+        <Text className='text-3xl text-center font-isemibold text-textcolorI'>
+          Join the 
+          <Text className='text-4xl font-ibold text-textcolorII'> LinkUp </Text>
+          Community
+        </Text>
+      </View>
+      {
+        indicator ? 
+        <View className='flex-1 p-5 justify-center items-center relative'>
+          <Image
+            source={PuzzelGraphic}
+            className='w-[80%] h-[60%]'
+          />
+          <Text className='text-xl font-iregular text-center'>
+          Create an account to start connecting with new friends nearby. It's quick, easy, and free!
+          </Text>
+        </View>:
+        null
+      }
+     <View className='flex-1 justify-center'>
+     <View className='px-5'>
+        <NewSignUpWithPhone setIndicator={()=>{
+           setIndicator(false)
+        }} />
+      </View>
+      
+      {
+        indicator && 
+        <>
+        <View className='w-full px-5 flex-row justify-center items-center'>
+        <View className='flex-1 border-b '>
 
-        <TextInput
-          className="border border-neutral p-2 mb-4 rounded font-iregular"
-          placeholder="Email"
-          value={email}
-          onChangeText={setEmail}
-          keyboardType="email-address"
-          autoCapitalize="none"
-        />
+        </View>
+        <Text className='px-1'>OR</Text>
+        <View className='flex-1 border-b '>
 
-        <TextInput
-          className="border border-neutral p-2 mb-4 rounded font-iregular"
-          placeholder="Password"
-          value={password}
-          onChangeText={setPassword}
-          secureTextEntry
-        />
+        </View>
+      </View>
+        <View className='px-5'>
+        <SignInWithGoogle />
+      </View>
+        </>
+      }
+     </View>
 
-        <TextInput
-          className="border border-neutral p-2 mb-4 rounded font-iregular"
-          placeholder="Confirm Password"
-          value={confirmPassword}
-          onChangeText={setConfirmPassword}
-          secureTextEntry
-        />
-
-        <CustomButton2 title='addemail' onPress={handleSignUp} containerStyles='p-3 bg-vibrant'>
-          <Text className='text-primary font-iregular'>Add Email</Text>
-        </CustomButton2>
-        
-        {emailSent && <CustomButton2 title='addemail' onPress={checkVerification} containerStyles='p-3 bg-vibrant my-2'>
-          <Text className='text-primary font-iregular'>I Have Verified My Email</Text>
-        </CustomButton2>}
-
-        {emailSent && <CustomButton2 title='addemail' onPress={sendMail} containerStyles='p-3 bg-vibrant'>
-          <Text className='text-primary font-iregular'>Resend Email</Text>
-        </CustomButton2>}
-        
-      </ScrollView>
     </SafeAreaView>
-  );
-};
+  )
+}
 
-export default SignUpForm;
+export default signup1
